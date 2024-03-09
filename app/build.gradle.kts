@@ -1,7 +1,8 @@
 plugins {
-    //alias(libs.plugins.androidApplication)
+
     id("com.android.application")
     id("com.google.gms.google-services")
+    //alias(libs.plugins.androidApplication)
 }
 
 android {
