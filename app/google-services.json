@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164996010266",
+    "project_id": "ocenus-8f95e",
+    "storage_bucket": "ocenus-8f95e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164996010266:android:97bd0e0c38f6c758a8dca3",
+        "android_client_info": {
+          "package_name": "com.example.ocenus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaTdXOj0YLVF68Ld4Xnsw3P8HbmitrJy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
