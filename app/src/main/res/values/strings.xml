@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ocenus</string>
+    <string name="e_mail">E-mail:</string>
+    <string name="kontynuuj">Kontynuuj</string>
+    <string name="ocenus">Ocenus</string>
+    <string name="has_o">Hasło:</string>
+    <string name="guest_example_com">guest@example.com</string>
+    <string name="zapami_taj_mnie">Zapamiętaj mnie</string>
+</resources>
