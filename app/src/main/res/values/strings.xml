@@ -6,4 +6,8 @@
     <string name="has_o">Hasło:</string>
     <string name="guest_example_com">guest@example.com</string>
     <string name="zapami_taj_mnie">Zapamiętaj mnie</string>
+    <string name="login">Login:</string>
+    <string name="rejestracja" />
+    <string name="rejestracja1">Rejestracja</string>
+    <string name="logowanie">Logowanie</string>
 </resources>

@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -46,4 +47,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
     //noinspection UseTomlInstead
     implementation("com.google.firebase:firebase-analytics")
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-auth")
 }
