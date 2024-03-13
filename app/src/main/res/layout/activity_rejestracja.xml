@@ -12,16 +12,17 @@
         android:id="@+id/signup_password"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="81dp"
         android:autofillHints=""
         android:background="@drawable/lavender_border"
         android:drawablePadding="8dp"
-        android:hint="@string/password"
+        android:hint="@string/has_o1"
         android:inputType="textPassword"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_button"
         app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/signup_email"
         app:layout_constraintTop_toBottomOf="@+id/signup_email"
         app:layout_constraintVertical_bias="0.173" />
@@ -36,11 +37,11 @@
         android:textSize="42sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/email3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.236"
+        app:layout_constraintVertical_bias="0.207"
         tools:ignore="TextSizeCheck" />
 
     <TextView
@@ -65,23 +66,23 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
 
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="160dp"
         android:autofillHints=""
         android:background="@drawable/lavender_border"
         android:drawablePadding="8dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/signup_button"
         android:layout_width="239dp"
         android:layout_height="57dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#C30000"
         android:text="@string/zarejestruj_si"
         android:textSize="18sp"
@@ -90,5 +91,47 @@
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/signup_password"
         app:layout_constraintTop_toBottomOf="@+id/signup_password" />
+
+    <TextView
+        android:id="@+id/password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asap"
+        android:text="@string/has_o2"
+        android:textColorLink="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signup_password"
+        app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="@+id/signup_email"
+        app:layout_constraintTop_toBottomOf="@+id/signup_email" />
+
+    <TextView
+        android:id="@+id/email3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/e_mail3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signup_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="@+id/signup_email"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="102dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="120dp"
+        android:contentDescription="@string/logos"
+        app:layout_constraintBottom_toTopOf="@+id/email3"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="@+id/email3"
+        app:srcCompat="@drawable/wygld_api" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
