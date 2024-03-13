@@ -13,10 +13,10 @@
     <string name="masz_konto_zaloguj_si">Masz konto? Zaloguj się</string>
     <string name="zarejestruj_si">Zarejestruj się</string>
     <string name="potwierd_has_o">Potwierdź hasło</string>
-    <string name="email">E-mail: example@com </string>
+    <string name="email"> Wprowadź swój e-mail </string>
     <string name="password">Password</string>
     <string name="ocenus2">Ocenus</string>
-    <string name="has_o1">Password</string>
+    <string name="has_o1"> Wprowadź swoje hasło</string>
     <string name="has_o2">Hasło:</string>
     <string name="e_mail3">E-mail:</string>
     <string name="logos">Logo</string>

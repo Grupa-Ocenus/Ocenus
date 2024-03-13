@@ -16,6 +16,7 @@
         android:layout_marginBottom="81dp"
         android:autofillHints=""
         android:background="@drawable/lavender_border"
+        android:fontFamily="@font/asap"
         android:drawablePadding="8dp"
         android:hint="@string/has_o1"
         android:inputType="textPassword"
@@ -48,11 +49,11 @@
         android:id="@+id/signup_email"
         android:layout_width="350dp"
         android:layout_height="60dp"
-
         android:layout_marginTop="160dp"
         android:autofillHints=""
         android:background="@drawable/lavender_border"
         android:drawablePadding="8dp"
+        android:fontFamily="@font/asap"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="8dp"
@@ -68,6 +69,7 @@
         android:layout_marginTop="32dp"
         android:backgroundTint="#C30000"
         android:text="@string/zaloguj_si"
+        android:fontFamily="@font/asap"
         android:textAllCaps="true"
         android:textSize="18sp"
         app:cornerRadius="30dp"
@@ -87,9 +89,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/signup_password"
         app:layout_constraintEnd_toEndOf="@+id/signup_email"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="@+id/signup_email"
-        app:layout_constraintTop_toBottomOf="@+id/signup_email" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/email3"
+        app:layout_constraintTop_toBottomOf="@+id/signup_email"
+        app:layout_constraintVertical_bias="0.68" />
 
     <TextView
         android:id="@+id/email3"
@@ -99,9 +102,10 @@
         android:text="@string/e_mail3"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/asap"
         app:layout_constraintBottom_toTopOf="@+id/signup_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="@+id/signup_email"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="1.0" />
