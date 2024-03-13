@@ -10,4 +10,10 @@
     <string name="rejestracja" />
     <string name="rejestracja1">Rejestracja</string>
     <string name="logowanie">Logowanie</string>
+    <string name="masz_konto_zaloguj_si">Masz konto? Zaloguj się</string>
+    <string name="zarejestruj_si">Zarejestruj się</string>
+    <string name="potwierd_has_o">Potwierdź hasło</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="ocenus2">Ocenus</string>
 </resources>
