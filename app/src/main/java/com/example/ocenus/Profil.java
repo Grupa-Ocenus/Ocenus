@@ -24,7 +24,7 @@ public class Profil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: posprzątać xd
+        //TODO: posprzątać
         setContentView(R.layout.activity_main);
 
         profileName = findViewById(R.id.profileName);
