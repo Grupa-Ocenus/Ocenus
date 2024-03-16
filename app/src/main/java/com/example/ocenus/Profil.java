@@ -24,7 +24,7 @@ public class Profil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: posprzątać
+
         setContentView(R.layout.activity_main);
 
         profileName = findViewById(R.id.profileName);
@@ -71,7 +71,7 @@ public class Profil extends AppCompatActivity {
                     String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
                     String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
 
-                    Intent intent = new Intent(Profil.this, EditProfileActivity.class);
+                    Intent intent = new Intent(Profil.this, EdytujProfil.class);
 
                     intent.putExtra("name", nameFromDB);
                     intent.putExtra("email", emailFromDB);

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 public class Rejestracja extends AppCompatActivity {
-    EditText signupName, signupUsername, signupEmail, signupPassword;
+    EditText signupEmail, signupPassword;
     TextView loginRedirectText;
     Button signupButton;
     FirebaseDatabase database;
