@@ -1,29 +1,48 @@
 package com.example.ocenus;
-
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 public class Rejestracja extends AppCompatActivity {
-
+    EditText signupName, signupUsername, signupEmail, signupPassword;
+    TextView loginRedirectText;
+    Button signupButton;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_rejestracja);
-
-
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        signupEmail = findViewById(R.id.signup_email);
+        signupPassword = findViewById(R.id.signup_password);
+        loginRedirectText = findViewById(R.id.loginRedirectText);
+        signupButton = findViewById(R.id.signup_button);
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("users");
+                String email = signupEmail.getText().toString();
+                String password = signupPassword.getText().toString();
+                Helper helperClass = new Helper(email, password);
+                //reference.child(username).setValue(helperClass);
+                Toast.makeText(Rejestracja.this, "You have signup successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Rejestracja.this, Logowanie.class);
+                startActivity(intent);
+            }
+        });
+        loginRedirectText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Rejestracja.this, Logowanie.class);
+                startActivity(intent);
+            }
         });
     }
 }
