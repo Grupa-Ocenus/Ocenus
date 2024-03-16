@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class Logowanie extends AppCompatActivity {
 
+    
     EditText loginEmail, loginPassword;
     Button loginButton;
     TextView signupRedirectText;
@@ -40,10 +41,10 @@ public class Logowanie extends AppCompatActivity {
             }
         });
 
-        signupRedirectText.setOnClickListener(view -> {
-            Intent intent = new Intent(Logowanie.this, Rejestracja.class);
-            startActivity(intent);
-        });
+        //signupRedirectText.setOnClickListener(view -> {
+        //    Intent intent = new Intent(Logowanie.this, Rejestracja.class);
+         //   startActivity(intent);
+      //  });
 
     }
 
@@ -71,11 +72,11 @@ public class Logowanie extends AppCompatActivity {
 
 
     public void checkUser(){
-        String userUsername = loginEmail.getText().toString().trim();
+        String userEmail = loginEmail.getText().toString().trim();
         String userPassword = loginPassword.getText().toString().trim();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
+        DatabaseReference reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users");
+        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,20 +85,20 @@ public class Logowanie extends AppCompatActivity {
                 if (snapshot.exists()){
 
                     loginEmail.setError(null);
-                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
+                    String passwordFromDB = snapshot.child(userEmail).child("password").getValue(String.class);
 
                     if (Objects.equals(passwordFromDB, userPassword)) {
                         loginEmail.setError(null);
 
-                        String nameFromDB = snapshot.child(userUsername).child("name").getValue(String.class);
-                        String emailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
-                        String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
+
+                        String emailFromDB = snapshot.child(userEmail).child("email").getValue(String.class);
+                        //String usernameFromDB = snapshot.child(userEmail).child("username").getValue(String.class);
 
                         Intent intent = new Intent(Logowanie.this, Profil.class);
 
-                        intent.putExtra("name", nameFromDB);
+
                         intent.putExtra("email", emailFromDB);
-                        intent.putExtra("username", usernameFromDB);
+                        //intent.putExtra("username", usernameFromDB);
                         intent.putExtra("password", passwordFromDB);
 
                         startActivity(intent);

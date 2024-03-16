@@ -41,16 +41,16 @@ public class Profil extends AppCompatActivity {
 
     public void showAllUserData(){
         Intent intent = getIntent();
-        String nameUser = intent.getStringExtra("name");
+       // String nameUser = intent.getStringExtra("name");
         String emailUser = intent.getStringExtra("email");
-        String usernameUser = intent.getStringExtra("username");
+       // String usernameUser = intent.getStringExtra("username");
         String passwordUser = intent.getStringExtra("password");
 
-        titleName.setText(nameUser);
-        titleUsername.setText(usernameUser);
-        profileName.setText(nameUser);
+        //titleName.setText(nameUser);
+        //titleUsername.setText(usernameUser);
+       // profileName.setText(nameUser);
         profileEmail.setText(emailUser);
-        profileUsername.setText(usernameUser);
+        //profileUsername.setText(usernameUser);
         profilePassword.setText(passwordUser);
     }
 
