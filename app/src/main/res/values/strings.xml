@@ -13,7 +13,7 @@
     <string name="masz_konto_zaloguj_si">Masz konto? Zaloguj się</string>
     <string name="zarejestruj_si">Zarejestruj się</string>
     <string name="potwierd_has_o">Potwierdź hasło</string>
-    <string name="email"> Wprowadź swój e-mail </string>
+    <string name="email"> Wprowadź swój login </string>
     <string name="password">Password</string>
     <string name="ocenus2">Ocenus</string>
     <string name="has_o1"> Wprowadź swoje hasło</string>
@@ -21,4 +21,17 @@
     <string name="e_mail3">E-mail:</string>
     <string name="logos">Logo</string>
     <string name="zaloguj_si">Zaloguj się</string>
+    <string name="username">Nazwisko</string>
+    <string name="name">Imię</string>
+    <string name="imie2">Imię</string>
+    <string name="imie3">imię</string>
+    <string name="e_mail2">E-mail</string>
+    <string name="email3">e-mail</string>
+    <string name="nazwisko2">Nazwisko</string>
+    <string name="nazwisko4">nazwisko</string>
+    <string name="has_o3">Hasło</string>
+    <string name="has_o4">hasło</string>
+    <string name="edytuj_profil2">Edytuj Profil</string>
+    <string name="login2">Login:</string>
+    <string name="login3">Login:</string>
 </resources>

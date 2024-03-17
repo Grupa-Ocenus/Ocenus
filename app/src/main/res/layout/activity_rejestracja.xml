@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/signup_email"
         app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="@+id/email3"
+        app:layout_constraintStart_toStartOf="@+id/login3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.207"
         tools:ignore="TextSizeCheck" />
@@ -108,17 +108,17 @@
         app:layout_constraintBottom_toTopOf="@+id/signup_password"
         app:layout_constraintEnd_toEndOf="@+id/signup_email"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email3"
+        app:layout_constraintStart_toStartOf="@+id/login3"
         app:layout_constraintTop_toBottomOf="@+id/signup_email"
         app:layout_constraintVertical_bias="0.68" />
 
     <TextView
-        android:id="@+id/email3"
+        android:id="@+id/login3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/e_mail3"
         android:fontFamily="@font/asap"
+        android:text="@string/login2"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/signup_email"
@@ -134,10 +134,10 @@
         android:layout_height="100dp"
         android:layout_marginBottom="120dp"
         android:contentDescription="@string/logos"
-        app:layout_constraintBottom_toTopOf="@+id/email3"
+        app:layout_constraintBottom_toTopOf="@+id/login3"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.022"
-        app:layout_constraintStart_toStartOf="@+id/email3"
+        app:layout_constraintStart_toStartOf="@+id/login3"
         app:srcCompat="@drawable/wygld_api" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
