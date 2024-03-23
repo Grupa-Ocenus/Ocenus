@@ -10,6 +10,9 @@
 
     <ImageView
         android:id="@+id/profileImg"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="Zmiana"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="172dp"
@@ -137,17 +140,5 @@
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@id/linearLayout"
         app:layout_constraintVertical_bias="0.413" />
-
-    <ImageView
-        android:id="@+id/dodaj_img"
-        android:layout_width="36dp"
-        android:layout_height="38dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileImg"
-        app:layout_constraintEnd_toEndOf="@+id/profileImg"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/profileImg"
-        app:layout_constraintTop_toTopOf="@+id/profileImg"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

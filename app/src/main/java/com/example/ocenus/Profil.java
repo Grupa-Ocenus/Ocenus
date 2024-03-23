@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profil extends AppCompatActivity {
 
-    TextView profileName, profileEmail, profileUsername, profilePassword;
+    TextView profileName, profileUsername;
     //TextView titleName, titleUsername;
     Button editProfile;
 
@@ -28,7 +28,7 @@ public class Profil extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileName = findViewById(R.id.profileName);
-        profileEmail = findViewById(R.id.profileUsername);
+        profileUsername = findViewById(R.id.profileUsername);
         editProfile = findViewById(R.id.editButton);
 
         showAllUserData();
@@ -39,17 +39,17 @@ public class Profil extends AppCompatActivity {
 
     public void showAllUserData(){
         Intent intent = getIntent();
-       // String nameUser = intent.getStringExtra("name");
-        String emailUser = intent.getStringExtra("email");
-       // String usernameUser = intent.getStringExtra("username");
-        String passwordUser = intent.getStringExtra("password");
+        String nameUser = intent.getStringExtra("name");
+        //String emailUser = intent.getStringExtra("email");
+        String usernameUser = intent.getStringExtra("username");
+        //String passwordUser = intent.getStringExtra("password");
 
         //titleName.setText(nameUser);
         //titleUsername.setText(usernameUser);
-       // profileName.setText(nameUser);
-        profileEmail.setText(emailUser);
-        //profileUsername.setText(usernameUser);
-        profilePassword.setText(passwordUser);
+        profileName.setText(nameUser);
+        //profileEmail.setText(emailUser);
+        profileUsername.setText(usernameUser);
+        //profilePassword.setText(passwordUser);
     }
 
     public void passUserData(){
