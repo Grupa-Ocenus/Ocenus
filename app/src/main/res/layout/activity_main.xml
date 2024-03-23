@@ -10,13 +10,14 @@
 
     <ImageView
         android:id="@+id/profileImg"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="Zmiana2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="Zmiana"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="104dp"
 
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
@@ -87,82 +88,6 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/asap"
                 android:text="@string/imie3"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/ocenusowski"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:alpha="0.5"
-            android:background="@color/ocenusowski" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/asap"
-                android:text="@string/e_mail2"
-                android:textColor="@color/ocenusowski"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/profileEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/asap"
-                android:text="@string/email3"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/ocenusowski"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:alpha="0.5"
-            android:background="@color/ocenusowski" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/asap"
-                android:text="@string/nazwisko2"
-                android:textColor="@color/ocenusowski"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/profileUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/asap"
-                android:text="@string/nazwisko4"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp" />
@@ -226,5 +151,13 @@
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@id/linearLayout"
         app:layout_constraintVertical_bias="0.616" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="552dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
