@@ -12,7 +12,7 @@
         android:id="@+id/profileImg"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="Zmiana"
+        android:onClick="Zmiana2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
