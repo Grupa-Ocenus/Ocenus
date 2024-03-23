@@ -47,16 +47,17 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     //noinspection UseTomlInstead
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     //noinspection UseTomlInstead
     implementation("com.google.firebase:firebase-analytics")
     //noinspection UseTomlInstead
     implementation("com.google.firebase:firebase-auth")
 
     // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 }

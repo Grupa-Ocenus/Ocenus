@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Profil extends AppCompatActivity {
 
     TextView profileName, profileEmail, profileUsername, profilePassword;
-    TextView titleName, titleUsername;
+    //TextView titleName, titleUsername;
     Button editProfile;
 
     @Override
@@ -28,9 +28,7 @@ public class Profil extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileName = findViewById(R.id.profileName);
-        profileEmail = findViewById(R.id.profileEmail);
-        profilePassword = findViewById(R.id.profilePassword);
-        titleName = findViewById(R.id.titleName);
+        profileEmail = findViewById(R.id.profileUsername);
         editProfile = findViewById(R.id.editButton);
 
         showAllUserData();
