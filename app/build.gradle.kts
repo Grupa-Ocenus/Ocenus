@@ -68,4 +68,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
+
+    // https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt
+    implementation("at.favre.lib:bcrypt:0.2.0")
 }

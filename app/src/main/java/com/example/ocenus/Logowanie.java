@@ -16,27 +16,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class Logowanie extends AppCompatActivity {
 
     
-    EditText loginEmail, loginPassword;
+    EditText loginLogin, loginPassword;
     Button loginButton;
-    TextView signupRedirectText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logowanie);
 
-        loginEmail = findViewById(R.id.login_email);
+        loginLogin = findViewById(R.id.login_login);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
      //   signupRedirectText = findViewById(R.id.signupRedirectText);
 
         loginButton.setOnClickListener(view -> {
-            if (validateEmail() & validatePassword()) {
+            if (validateLogin() & validatePassword()) {
                 checkUser();
             }
         });
@@ -48,13 +47,13 @@ public class Logowanie extends AppCompatActivity {
 
     }
 
-    public Boolean validateEmail() {
-        String val = loginEmail.getText().toString();
+    public Boolean validateLogin() {
+        String val = loginLogin.getText().toString();
         if (val.isEmpty()) {
-            loginEmail.setError("Username cannot be empty");
+            loginLogin.setError("Username cannot be empty");
             return false;
         } else {
-            loginEmail.setError(null);
+            loginLogin.setError(null);
             return true;
         }
     }
@@ -72,11 +71,11 @@ public class Logowanie extends AppCompatActivity {
 
 
     public void checkUser(){
-        String userEmail = loginEmail.getText().toString().trim();
+        String userLogin = loginLogin.getText().toString().trim();
         String userPassword = loginPassword.getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users");
-        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
+        Query checkUserDatabase = reference.orderByChild("login").equalTo(userLogin);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,20 +83,19 @@ public class Logowanie extends AppCompatActivity {
 
                 if (snapshot.exists()){
 
-                    loginEmail.setError(null);
-                    String passwordFromDB = snapshot.child(userEmail).child("password").getValue(String.class);
+                    loginLogin.setError(null);
+                    String passwordFromDB = snapshot.child(userLogin).child("password").getValue(String.class);
+                    //String hashedPassword = BCrypt.withDefaults().hashToString(12,userPassword.toCharArray());
+                    BCrypt.Result result = BCrypt.verifyer().verify(userPassword.toCharArray(),passwordFromDB);
+                    if (result.verified) {
+                        loginLogin.setError(null);
 
-                    if (Objects.equals(passwordFromDB, userPassword)) {
-                        loginEmail.setError(null);
-
-
-                        String emailFromDB = snapshot.child(userEmail).child("email").getValue(String.class);
-                        //String usernameFromDB = snapshot.child(userEmail).child("username").getValue(String.class);
+                        String loginFromDB = snapshot.child(userLogin).child("login").getValue(String.class);
+                        //String usernameFromDB = snapshot.child(userLogin).child("username").getValue(String.class);
 
                         Intent intent = new Intent(Logowanie.this, Profil.class);
 
-
-                        intent.putExtra("email", emailFromDB);
+                        intent.putExtra("login", loginFromDB);
                         //intent.putExtra("username", usernameFromDB);
                         intent.putExtra("password", passwordFromDB);
 
@@ -107,11 +105,10 @@ public class Logowanie extends AppCompatActivity {
                         loginPassword.requestFocus();
                     }
                 } else {
-                    loginEmail.setError("User does not exist");
-                    loginEmail.requestFocus();
+                    loginLogin.setError("User does not exist");
+                    loginLogin.requestFocus();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

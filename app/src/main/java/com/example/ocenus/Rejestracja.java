@@ -9,8 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class Rejestracja extends AppCompatActivity {
-    EditText signupEmail, signupPassword;
+    EditText signupLogin, signupPassword;
     TextView loginRedirectText;
     Button signupButton;
     FirebaseDatabase database;
@@ -20,7 +23,7 @@ public class Rejestracja extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rejestracja);
-        signupEmail = findViewById(R.id.signup_email);
+        signupLogin = findViewById(R.id.signup_login);
         signupPassword = findViewById(R.id.signup_password);
         loginRedirectText = findViewById(R.id.loginRedirectText);
         signupButton = findViewById(R.id.signup_button);
@@ -29,10 +32,11 @@ public class Rejestracja extends AppCompatActivity {
             public void onClick(View view) {
                 database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
                 reference = database.getReference("users");
-                String email = signupEmail.getText().toString();
+                String login = signupLogin.getText().toString();
                 String password = signupPassword.getText().toString();
-                Helper helperClass = new Helper(email, password);
-                reference.child(email).setValue(helperClass);
+                String hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+                Helper helperClass = new Helper(login, hashedPassword);
+                reference.child(login).setValue(helperClass);
                 Toast.makeText(Rejestracja.this, "You have signup successfully!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(Rejestracja.this, Logowanie.class);

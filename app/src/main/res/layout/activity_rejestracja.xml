@@ -22,10 +22,10 @@
         android:inputType="textPassword"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_button"
-        app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintEnd_toEndOf="@+id/signup_login"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/signup_email"
-        app:layout_constraintTop_toBottomOf="@+id/signup_email"
+        app:layout_constraintStart_toStartOf="@+id/signup_login"
+        app:layout_constraintTop_toBottomOf="@+id/signup_login"
         app:layout_constraintVertical_bias="0.173" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:textSize="42sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintEnd_toEndOf="@+id/signup_login"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="@+id/login3"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/signup_email"
+        android:id="@+id/signup_login"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginTop="160dp"
@@ -106,10 +106,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/signup_password"
-        app:layout_constraintEnd_toEndOf="@+id/signup_email"
+        app:layout_constraintEnd_toEndOf="@+id/signup_login"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/login3"
-        app:layout_constraintTop_toBottomOf="@+id/signup_email"
+        app:layout_constraintTop_toBottomOf="@+id/signup_login"
         app:layout_constraintVertical_bias="0.68" />
 
     <TextView
@@ -121,10 +121,10 @@
         android:text="@string/login2"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/signup_email"
+        app:layout_constraintBottom_toTopOf="@+id/signup_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.021"
-        app:layout_constraintStart_toStartOf="@+id/signup_email"
+        app:layout_constraintStart_toStartOf="@+id/signup_login"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="1.0" />
 
