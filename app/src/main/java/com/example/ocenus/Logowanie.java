@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -32,18 +33,12 @@ public class Logowanie extends AppCompatActivity {
         loginLogin = findViewById(R.id.login_login);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
-     //   signupRedirectText = findViewById(R.id.signupRedirectText);
 
         loginButton.setOnClickListener(view -> {
             if (validateLogin() & validatePassword()) {
                 checkUser();
             }
         });
-
-        //signupRedirectText.setOnClickListener(view -> {
-        //    Intent intent = new Intent(Logowanie.this, Rejestracja.class);
-         //   startActivity(intent);
-      //  });
 
     }
 
@@ -85,21 +80,33 @@ public class Logowanie extends AppCompatActivity {
 
                     loginLogin.setError(null);
                     String passwordFromDB = snapshot.child(userLogin).child("password").getValue(String.class);
-                    //String hashedPassword = BCrypt.withDefaults().hashToString(12,userPassword.toCharArray());
                     BCrypt.Result result = BCrypt.verifyer().verify(userPassword.toCharArray(),passwordFromDB);
                     if (result.verified) {
                         loginLogin.setError(null);
 
                         String loginFromDB = snapshot.child(userLogin).child("login").getValue(String.class);
-                        //String usernameFromDB = snapshot.child(userLogin).child("username").getValue(String.class);
 
-                        Intent intent = new Intent(Logowanie.this, Profil.class);
+                        DaneUzytkownika dane = snapshot.child(userLogin).child("dane").getValue(DaneUzytkownika.class);
 
-                        intent.putExtra("login", loginFromDB);
-                        //intent.putExtra("username", usernameFromDB);
-                        intent.putExtra("password", passwordFromDB);
+                        if(Objects.isNull(dane) || Objects.equals(dane.getName()," ") || Objects.equals(dane.getSurname()," ")) {
 
-                        startActivity(intent);
+                            Intent intent = new Intent(Logowanie.this, EdytujProfil.class);
+
+                            intent.putExtra("login", loginFromDB);
+
+                            startActivity(intent);
+                        }
+                        else{
+                            Intent intent = new Intent(Logowanie.this, Profil.class);
+
+                            intent.putExtra("login", loginFromDB);
+                            intent.putExtra("name", dane.getName());
+                            intent.putExtra("surname", dane.getSurname());
+
+                            startActivity(intent);
+                        }
+
+
                     } else {
                         loginPassword.setError("Invalid Credentials");
                         loginPassword.requestFocus();

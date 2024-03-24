@@ -47,6 +47,12 @@
         </activity>
         <activity
             android:screenOrientation="portrait"
+            android:name=".EdytujProfil"
+            android:exported="true"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity">
+        </activity>
+        <activity
+            android:screenOrientation="portrait"
             android:name=".Profil"
             android:exported="true"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">

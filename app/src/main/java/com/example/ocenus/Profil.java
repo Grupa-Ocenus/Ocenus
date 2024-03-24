@@ -17,74 +17,43 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profil extends AppCompatActivity {
 
-    TextView profileName, profileUsername;
-    //TextView titleName, titleUsername;
+    TextView profileName, profileSurname,profileLogin;
     Button editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profil);
 
-        profileName = findViewById(R.id.profileName);
-        profileUsername = findViewById(R.id.profileUsername);
-        editProfile = findViewById(R.id.editProfile);
+        profileName = findViewById(R.id.profileImie);
+        profileSurname = findViewById(R.id.profileNazwisko);
+        profileLogin = findViewById(R.id.profileLogowanie);
+        editProfile = findViewById(R.id.editButton);
 
         showAllUserData();
 
-        editProfile.setOnClickListener(view -> passUserData());
+        editProfile.setOnClickListener(view -> {
+            goToEdit();
+        });
 
     }
 
     public void showAllUserData(){
         Intent intent = getIntent();
         String nameUser = intent.getStringExtra("name");
-        //String emailUser = intent.getStringExtra("email");
-        String usernameUser = intent.getStringExtra("username");
-        //String passwordUser = intent.getStringExtra("password");
+        String surnameUser = intent.getStringExtra("surname");
+        String loginUser = intent.getStringExtra("login");
 
-        //titleName.setText(nameUser);
-        //titleUsername.setText(usernameUser);
         profileName.setText(nameUser);
-        //profileEmail.setText(emailUser);
-        profileUsername.setText(usernameUser);
-        //profilePassword.setText(passwordUser);
+        profileSurname.setText(surnameUser);
+        profileLogin.setText(loginUser);
     }
 
-    public void passUserData(){
-        String userUsername = profileUsername.getText().toString().trim();
+    private void goToEdit(){
+        Intent intent = new Intent(Profil.this, EdytujProfil.class);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.exists()){
-
-                    String nameFromDB = snapshot.child(userUsername).child("name").getValue(String.class);
-                    String emailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
-                    String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
-                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
-
-                    Intent intent = new Intent(Profil.this, EdytujProfil.class);
-
-                    intent.putExtra("name", nameFromDB);
-                    intent.putExtra("email", emailFromDB);
-                    intent.putExtra("username", usernameFromDB);
-                    intent.putExtra("password", passwordFromDB);
-
-                    startActivity(intent);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        intent.putExtra("login",profileLogin.getText());
+        startActivity(intent);
     }
 }
