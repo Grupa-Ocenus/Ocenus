@@ -29,7 +29,7 @@ public class Profil extends AppCompatActivity {
 
         profileName = findViewById(R.id.profileName);
         profileUsername = findViewById(R.id.profileUsername);
-        editProfile = findViewById(R.id.editButton);
+        editProfile = findViewById(R.id.editProfile);
 
         showAllUserData();
 

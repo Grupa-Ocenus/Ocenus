@@ -44,7 +44,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.time.Instant;
 import java.util.HashMap;
 
 public class EdytujProfil extends AppCompatActivity {
@@ -56,15 +55,15 @@ public class EdytujProfil extends AppCompatActivity {
     StorageReference storageReference;
     String storagepath = "Users_Profile_Cover_image/";
     String uid;
-    ImageView set, profilepic;
-    TextView editname, editpassword;
+    ImageView set;
+    TextView profilepic, editname, editpassword;
     ProgressDialog pd;
     private static final int CAMERA_REQUEST = 100;
     private static final int STORAGE_REQUEST = 200;
     private static final int IMAGEPICK_GALLERY_REQUEST = 300;
     private static final int IMAGE_PICKCAMERA_REQUEST = 400;
-    String cameraPermission[];
-    String storagePermission[];
+    String[] cameraPermission;
+    String[] storagePermission;
     Uri imageuri;
     String profileOrCoverPhoto;
 
@@ -73,12 +72,12 @@ public class EdytujProfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView profilepic = findViewById(R.id.profileImg);
-        editname = findViewById(R.id.profileName);
-        //set = findViewById(R.id.setting_profile_image);
+        profilepic = findViewById(R.id.profilepic);
+        editname = findViewById(R.id.editname);
+        set = findViewById(R.id.setting_profile_image);
         pd = new ProgressDialog(this);
         pd.setCanceledOnTouchOutside(false);
-        //editpassword = findViewById(R.id.changepassword);
+        editpassword = findViewById(R.id.changepassword);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -87,6 +86,28 @@ public class EdytujProfil extends AppCompatActivity {
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Query query = databaseReference.orderByChild("email").equalTo(firebaseUser.getEmail());
+
+        profilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImagePicDialog();
+            }
+        });
+
+        editname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNamephoneupdate("name");
+            }
+        });
+
+        editpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPasswordChangeDailog();
+            }
+        });
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,7 +117,8 @@ public class EdytujProfil extends AppCompatActivity {
 
                     try {
                         Glide.with(EdytujProfil.this).load(image).into(set);
-                    }finally{}
+                    } catch (Exception e) {
+                    }
                 }
             }
 
@@ -107,7 +129,7 @@ public class EdytujProfil extends AppCompatActivity {
         });
 
         editpassword.setOnClickListener(v -> {
-            pd.setMessage("Changing Password");
+            pd.setMessage(getString(R.string.changing_password_message));
             showPasswordChangeDailog();
         });
 
@@ -136,7 +158,8 @@ public class EdytujProfil extends AppCompatActivity {
 
                     try {
                         Glide.with(EdytujProfil.this).load(image).into(set);
-                    }finally{}
+                    } catch (Exception ignored) {
+                    }
 
                 }
             }
@@ -166,7 +189,8 @@ public class EdytujProfil extends AppCompatActivity {
 
                     try {
                         Glide.with(EdytujProfil.this).load(image).into(set);
-                    }finally{}
+                    } catch (Exception ignored) {
+                    }
 
                 }
             }
@@ -184,8 +208,7 @@ public class EdytujProfil extends AppCompatActivity {
 
     // checking storage permission ,if given then we can add something in our storage
     private Boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-        return result;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
     // requesting for storage permission
@@ -245,10 +268,13 @@ public class EdytujProfil extends AppCompatActivity {
                         }).addOnFailureListener(e -> {
                             pd.dismiss();
                             Toast.makeText(EdytujProfil.this, "Failed", Toast.LENGTH_LONG).show();
-                        })).addOnFailureListener(e -> {
-                            pd.dismiss();
-                            Toast.makeText(EdytujProfil.this, "Failed", Toast.LENGTH_LONG).show();
-                        });
+                        })).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(EdytujProfil.this, "Failed", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     // Updating name
@@ -278,12 +304,9 @@ public class EdytujProfil extends AppCompatActivity {
 
                     // after updated we will show updated
                     Toast.makeText(EdytujProfil.this, " updated ", Toast.LENGTH_LONG).show();
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(EdytujProfil.this, "Unable to update", Toast.LENGTH_LONG).show();
-                    }
+                }).addOnFailureListener(e -> {
+                    pd.dismiss();
+                    Toast.makeText(EdytujProfil.this, "Unable to update", Toast.LENGTH_LONG).show();
                 });
                 if (key.equals("name")) {
                     final DatabaseReference databaser = FirebaseDatabase.getInstance().getReference("Posts");
