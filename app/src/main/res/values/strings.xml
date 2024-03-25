@@ -37,5 +37,6 @@
 
 
     <string name="changing_password_message">Changing Password</string>
+    <string name="potwierd">Potwierdź</string>
 
 </resources>

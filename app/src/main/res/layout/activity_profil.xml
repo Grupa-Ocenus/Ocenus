@@ -8,23 +8,24 @@
     android:background="#FFFFFF"
     tools:context=".Profil">
 
+
     <ImageView
         android:id="@+id/profileImg"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-
+        android:layout_marginTop="56dp"
+        android:background="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
 
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
@@ -152,15 +153,17 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:backgroundTint="#C30000"
+        android:fontFamily="@font/asap"
         android:gravity="center"
         android:text="Edytuj Profil"
-
+        android:textAllCaps="true"
+        android:textColorLink="@color/ocenusowski"
         android:textSize="18sp"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/linearLayout"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@id/linearLayout"
-        app:layout_constraintVertical_bias="0.616" />
+        app:layout_constraintVertical_bias="0.173" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
