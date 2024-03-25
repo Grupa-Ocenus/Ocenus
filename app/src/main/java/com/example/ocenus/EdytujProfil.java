@@ -59,11 +59,13 @@ public class EdytujProfil extends AppCompatActivity {
     private ImageView uploadImage;
     private Uri imageUri;
 
-    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Obrazy");
-
-    final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    private String currentUserId;
 
 
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
+    //final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(login).child("obrazy");
+    //final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,12 @@ public class EdytujProfil extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users");
         Query checkUserDatabase = reference.orderByChild("login").equalTo(login);
+
+        DatabaseReference userReference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login);
+        databaseReference = userReference.child("obrazy");
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -101,6 +109,8 @@ public class EdytujProfil extends AppCompatActivity {
         });
 
         uploadImage = findViewById(R.id.uploadImage);
+
+
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
