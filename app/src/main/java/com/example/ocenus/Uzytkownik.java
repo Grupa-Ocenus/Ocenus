@@ -5,6 +5,22 @@ public class Uzytkownik {
     private String login, password;
     private DaneUzytkownika dane;
 
+    private String imageURL;
+
+    public Uzytkownik()
+    {}
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public Uzytkownik(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     public Uzytkownik(String login, String password, DaneUzytkownika dane) {
         this.login = login;
         this.password = password;
