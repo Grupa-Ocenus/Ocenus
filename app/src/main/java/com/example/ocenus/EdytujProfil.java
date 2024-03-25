@@ -59,13 +59,14 @@ public class EdytujProfil extends AppCompatActivity {
     private ImageView uploadImage;
     private Uri imageUri;
 
-    private String currentUserId;
-
-
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     //final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(login).child("obrazy");
     //final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,21 +75,20 @@ public class EdytujProfil extends AppCompatActivity {
         imieEdit = findViewById(R.id.profileImie);
         nazwiskoEdit = findViewById(R.id.profileNazwisko);
         confirmButton = findViewById(R.id.confirmButton);
-        confirmButton = findViewById(R.id.confirmButton);
+        uploadImage = findViewById(R.id.uploadImage);
 
         confirmButton.setOnClickListener(view -> {
             saveChanges();
         });
+
         login = intent.getStringExtra("login");
 
         DatabaseReference reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users");
         Query checkUserDatabase = reference.orderByChild("login").equalTo(login);
 
-        DatabaseReference userReference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login);
-        databaseReference = userReference.child("obrazy");
-
+        // Wrzucanie obrazów po loginie do Firebase
+        databaseReference = reference.child(login).child("obrazy");
         storageReference = FirebaseStorage.getInstance().getReference();
-
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -108,24 +108,16 @@ public class EdytujProfil extends AppCompatActivity {
             }
         });
 
-        uploadImage = findViewById(R.id.uploadImage);
-
-
-
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == Activity.RESULT_OK){
-                        Intent data = result.getData();
-                        imageUri = data.getData();
-                        uploadImage.setImageURI(imageUri);}
-                        else
-                        {Toast.makeText(EdytujProfil.this, "Nie wybrano obrazu", Toast.LENGTH_SHORT).show();
-                        }
+                result -> {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                    Intent data = result.getData();
+                    imageUri = data.getData();
+                    uploadImage.setImageURI(imageUri);}
+                    else
+                    {Toast.makeText(EdytujProfil.this, "Nie wybrano obrazu", Toast.LENGTH_SHORT).show();
                     }
-
                 }
         );
 
@@ -144,6 +136,7 @@ public class EdytujProfil extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(imageUri != null) {
+                    saveChanges();
                     uploadToFirebase(imageUri);
                 } else {
                     Toast.makeText(EdytujProfil.this, "Wybierz obraz", Toast.LENGTH_SHORT).show();
@@ -160,6 +153,7 @@ public class EdytujProfil extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
         reference = database.getReference("users").child(login).child("dane");
+
         Map<String,Object> values = new HashMap<>();
         values.put("name",userName);
         values.put("surname",userSurname);
@@ -179,23 +173,18 @@ public class EdytujProfil extends AppCompatActivity {
         {
             final StorageReference imageReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(uri));
 
-            imageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            imageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Uzytkownik uzytkownik =  new Uzytkownik(uri.toString());
-                            String key = databaseReference.push().getKey();
-                            databaseReference.child(key).setValue(uzytkownik);
-                            Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(EdytujProfil.this, Profil.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
+                public void onSuccess(Uri uri1) {
+                    Uzytkownik uzytkownik =  new Uzytkownik(uri1.toString());
+                    String key = databaseReference.push().getKey();
+                    databaseReference.child(key).setValue(uzytkownik);
+                    Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EdytujProfil.this, Profil.class);
+                    startActivity(intent);
+                    finish();
                 }
-            });
+            }));
         }
 
 
