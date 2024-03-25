@@ -77,9 +77,9 @@ public class EdytujProfil extends AppCompatActivity {
         confirmButton = findViewById(R.id.confirmButton);
         uploadImage = findViewById(R.id.uploadImage);
 
-        confirmButton.setOnClickListener(view -> {
-            saveChanges();
-        });
+        //confirmButton.setOnClickListener(view -> {
+        //saveChanges();
+        //});
 
         login = intent.getStringExtra("login");
 
@@ -143,13 +143,13 @@ public class EdytujProfil extends AppCompatActivity {
                 }
             }
         });
-
     }
 
 
     private void saveChanges(){
         String userName = imieEdit.getText().toString().trim();
         String userSurname = nazwiskoEdit.getText().toString().trim();
+        String userLogin = login;
 
         database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
         reference = database.getReference("users").child(login).child("dane");
@@ -162,7 +162,7 @@ public class EdytujProfil extends AppCompatActivity {
         Toast.makeText(EdytujProfil.this, "Dane zmienione!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(EdytujProfil.this, Profil.class);
-        intent.putExtra("login", login);
+        intent.putExtra("login", userLogin);
         intent.putExtra("name", userName);
         intent.putExtra("surname", userSurname);
         startActivity(intent);

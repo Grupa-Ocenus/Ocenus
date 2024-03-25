@@ -31,29 +31,35 @@ public class Profil extends AppCompatActivity {
         profileLogin = findViewById(R.id.profileLogowanie);
         editProfile = findViewById(R.id.editButton);
 
-        showAllUserData();
-
         editProfile.setOnClickListener(view -> {
             goToEdit();
         });
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllUserData();
+    }
     public void showAllUserData(){
         Intent intent = getIntent();
         String nameUser = intent.getStringExtra("name");
         String surnameUser = intent.getStringExtra("surname");
         String loginUser = intent.getStringExtra("login");
 
-        profileName.setText(nameUser);
-        profileSurname.setText(surnameUser);
-        profileLogin.setText(loginUser);
+        if(nameUser != null && surnameUser != null && loginUser != null) {
+            profileName.setText(nameUser);
+            profileSurname.setText(surnameUser);
+            profileLogin.setText(loginUser);
+        }
     }
 
     private void goToEdit(){
         Intent intent = new Intent(Profil.this, EdytujProfil.class);
 
         intent.putExtra("login",profileLogin.getText());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

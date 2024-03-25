@@ -22,7 +22,8 @@ public class Rejestracja extends AppCompatActivity {
     DatabaseReference reference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rejestracja);
         signupLogin = findViewById(R.id.signup_login);
@@ -30,10 +31,13 @@ public class Rejestracja extends AppCompatActivity {
         loginRedirectText = findViewById(R.id.loginRedirectText);
         signupButton = findViewById(R.id.signup_button);
         signupButton.setOnClickListener(view -> {
-            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
-            reference = database.getReference("users");
+
             String login = signupLogin.getText().toString();
             String password = signupPassword.getText().toString();
+
+            if (!login.isEmpty() && !password.isEmpty()) {
+            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
+            reference = database.getReference("users");
             String hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
             Uzytkownik uzytkownik = new Uzytkownik(login, hashedPassword,new DaneUzytkownika(" "," "));
             reference.child(login).setValue(uzytkownik);
@@ -41,6 +45,12 @@ public class Rejestracja extends AppCompatActivity {
 
             Intent intent = new Intent(Rejestracja.this, Logowanie.class);
             startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(Rejestracja.this, "Podaj login i hasło by móc się zarejestrować", Toast.LENGTH_SHORT).show();
+            }
+
         });
         loginRedirectText.setOnClickListener(view -> {
             Intent intent = new Intent(Rejestracja.this, Logowanie.class);
