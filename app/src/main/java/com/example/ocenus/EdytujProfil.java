@@ -166,6 +166,13 @@ public class EdytujProfil extends AppCompatActivity {
         intent.putExtra("name", userName);
         intent.putExtra("surname", userSurname);
         startActivity(intent);
+        goTo();
+    }
+
+    private void goTo(){
+
+        Intent intent = new Intent(EdytujProfil.this, StronaGlowna.class);
+        startActivity(intent);
     }
 
 
