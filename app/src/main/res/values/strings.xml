@@ -39,4 +39,11 @@
     <string name="changing_password_message">Changing Password</string>
     <string name="potwierd">Potwierdź</string>
 
+
+    <string name="open_nav">Otwórz Szufladę Nawigacji</string>
+    <string name="close_nav">Zamknij Szufladę Nawigacji</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
