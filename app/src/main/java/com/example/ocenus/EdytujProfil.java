@@ -161,12 +161,14 @@ public class EdytujProfil extends AppCompatActivity {
 
         Toast.makeText(EdytujProfil.this, "Dane zmienione!", Toast.LENGTH_SHORT).show();
 
+
         Intent intent = new Intent(EdytujProfil.this, Profil.class);
         intent.putExtra("login", userLogin);
         intent.putExtra("name", userName);
         intent.putExtra("surname", userSurname);
         startActivity(intent);
         goTo();
+
     }
 
     private void goTo(){
@@ -187,7 +189,7 @@ public class EdytujProfil extends AppCompatActivity {
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(uzytkownik);
                     Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EdytujProfil.this, Profil.class);
+                    Intent intent = new Intent(EdytujProfil.this, StronaGlowna.class);
                     startActivity(intent);
                     finish();
                 }
