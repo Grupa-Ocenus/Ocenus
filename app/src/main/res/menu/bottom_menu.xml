@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/StronaGlowna"
-        android:title="Strona Główna"
+        android:title="@string/strona_g_wna"
         android:icon="@drawable/baseline_home_24"/>
 
     <item
         android:id="@+id/Statystyki"
-        android:title="Statystyki"
+        android:title="@string/statystyki"
         android:icon="@drawable/baseline_stats_24"
         />
 
@@ -18,11 +18,11 @@
 
     <item
         android:id="@+id/Wydarzenia"
-        android:title="Wydarzenia"
+        android:title="@string/wydarzenia"
         android:icon="@drawable/baseline_notifs_24" />
     <item
         android:id="@+id/Edycja"
-        android:title="Edycja"
+        android:title="@string/edycja"
         android:icon="@drawable/baseline_settings_24" />
 
 </menu>

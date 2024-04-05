@@ -10,12 +10,13 @@
         <item
             android:id="@+id/nav_studia"
             android:icon="@drawable/baseline_home_24"
-            android:title="Studia"/>
+            android:title="@string/studia"/>
 
         <item
             android:id="@+id/nav_ustawienia"
             android:icon="@drawable/baseline_settings_24"
-            android:title="Ustawienia"/>
+            android:title="@string/ustawienia"
+            />
 
 
 
@@ -28,7 +29,8 @@
             <item
                 android:id="@+id/nav_wyloguj"
                 android:icon="@drawable/baseline_logout_24"
-                android:title="Wyloguj"/>
+                android:title="@string/wyloguj"
+                />
         </menu>
 
     </item>

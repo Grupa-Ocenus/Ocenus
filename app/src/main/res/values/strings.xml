@@ -44,6 +44,17 @@
     <string name="close_nav">Zamknij Szufladę Nawigacji</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dodaj_ocen">Dodaj Ocenę</string>
+    <string name="dodaj_wydarzenie">Dodaj Wydarzenie</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="imie_nazwisko">Imie Nazwisko</string>
+    <string name="wyloguj">Wyloguj</string>
+    <string name="ustawienia">Ustawienia</string>
+    <string name="studia">Studia</string>
+    <string name="strona_g_wna">Strona Główna</string>
+    <string name="statystyki">Statystyki</string>
+    <string name="wydarzenia">Wydarzenia</string>
+    <string name="edycja">Edycja</string>
 
 
 </resources>

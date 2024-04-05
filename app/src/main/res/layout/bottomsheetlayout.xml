@@ -21,21 +21,24 @@
             android:id="@+id/dodaj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:text="Dodaj"
-            android:padding="8dp"
-            android:textColor="@color/ocenusowski"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:textSize="25dp" />
+            android:fontFamily="@font/asap"
+            android:padding="10dp"
+            android:text="@string/dodaj"
+            android:textAlignment="viewStart"
+            android:textAllCaps="true"
+            android:textColor="@color/ocenusowski"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_keyboard_arrow_down_24"
-            android:layout_marginLeft="250dp"
+            android:id="@+id/cofnij_dodaj"
+            android:layout_width="38dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="200dp"
             android:layout_marginTop="8dp"
-            android:id="@+id/cofnij_dodaj"/>
+            android:src="@drawable/baseline_keyboard_arrow_down_24" />
 
     </LinearLayout>
 
@@ -56,10 +59,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dodaj Ocenę"
+            android:text="@string/dodaj_ocen"
+            android:fontFamily="@font/asap"
             android:textColor="@color/ocenusowski"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:layout_marginStart="30dp"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
@@ -74,15 +78,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_dod_notif_24"/>
+            android:src="@drawable/baseline_dod_notif_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dodaj Wydarzenie"
+            android:text="@string/dodaj_wydarzenie"
+            android:fontFamily="@font/asap"
             android:textColor="@color/ocenusowski"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:layout_marginStart="30dp"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
