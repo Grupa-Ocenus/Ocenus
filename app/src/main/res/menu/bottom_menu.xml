@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/StronaGlowna"
-        android:title="@string/strona_g_wna"
+        android:title="@string/g_wna"
         android:icon="@drawable/baseline_home_24"/>
 
     <item

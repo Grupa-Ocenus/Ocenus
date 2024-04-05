@@ -21,7 +21,7 @@
             android:id="@+id/dodaj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/asap"
             android:padding="10dp"
@@ -35,8 +35,8 @@
         <ImageView
             android:id="@+id/cofnij_dodaj"
             android:layout_width="38dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="200dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/baseline_keyboard_arrow_down_24" />
 
@@ -45,25 +45,25 @@
 
     <LinearLayout
         android:id="@+id/layoutOcena"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="374dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_dod_ocene_24"/>
+            android:src="@drawable/baseline_dod_ocene_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dodaj_ocen"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/ocenusowski"
             android:layout_marginStart="30dp"
-            android:textSize="18sp"/>
+            android:fontFamily="@font/asap"
+            android:text="@string/dodaj_ocen"
+            android:textColor="@color/ocenusowski"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -51,10 +51,10 @@
     <string name="wyloguj">Wyloguj</string>
     <string name="ustawienia">Ustawienia</string>
     <string name="studia">Studia</string>
-    <string name="strona_g_wna">Strona Główna</string>
     <string name="statystyki">Statystyki</string>
     <string name="wydarzenia">Wydarzenia</string>
     <string name="edycja">Edycja</string>
+    <string name="g_wna">Główna</string>
 
 
 </resources>
