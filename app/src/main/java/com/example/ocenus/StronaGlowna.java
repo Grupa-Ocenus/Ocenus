@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 //import android.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar;
+//import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +25,29 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import android.os.Handler;
+
 public class StronaGlowna extends AppCompatActivity {
 
     FloatingActionButton fab;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
+
+    private boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity();
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Naciśnij dwukrotnie, aby zamknąć aplikację", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -108,7 +126,7 @@ public class StronaGlowna extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(StronaGlowna.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(StronaGlowna.this,"Kliknięto by dodać ocenę",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -118,7 +136,7 @@ public class StronaGlowna extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(StronaGlowna.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(StronaGlowna.this,"Kliknięto by dodać wydarzenie",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -140,3 +158,4 @@ public class StronaGlowna extends AppCompatActivity {
 
     }
 }
+

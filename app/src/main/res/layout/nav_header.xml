@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
@@ -10,14 +10,21 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="89dp"
-        android:layout_height="92dp"
+        android:id="@+id/profileImageView"
+        android:layout_width="75dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/profile" />
 
     <TextView
-        android:layout_width="129dp"
-        android:layout_height="26dp"
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/profileImageView"
         android:fontFamily="@font/asap"
+        android:textSize="20dp"
         android:text="@string/imie_nazwisko"
         android:textColor="@color/white"
         android:textStyle="bold" />

@@ -173,7 +173,7 @@ public class EdytujProfil extends AppCompatActivity {
 
     private void goTo(){
 
-        Intent intent = new Intent(EdytujProfil.this, StronaGlowna.class);
+        Intent intent = new Intent(EdytujProfil.this, Ladowanie.class);
         startActivity(intent);
     }
 
@@ -188,7 +188,7 @@ public class EdytujProfil extends AppCompatActivity {
                     Uzytkownik uzytkownik =  new Uzytkownik(uri1.toString());
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(uzytkownik);
-                    Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EdytujProfil.this, StronaGlowna.class);
                     startActivity(intent);
                     finish();
