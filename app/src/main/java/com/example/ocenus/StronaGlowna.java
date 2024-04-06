@@ -118,7 +118,8 @@ public class StronaGlowna extends AppCompatActivity {
 
         LinearLayout ocenaLayout = dialog.findViewById(R.id.layoutOcena);
         LinearLayout wydarzenieLayout = dialog.findViewById(R.id.layoutWydarzenie);
-        
+        LinearLayout kierunekLayout = dialog.findViewById(R.id.layoutKierunek);
+
         ImageView cancelButton = dialog.findViewById(R.id.cofnij_dodaj);
 
         ocenaLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +138,15 @@ public class StronaGlowna extends AppCompatActivity {
 
                 dialog.dismiss();
                 Toast.makeText(StronaGlowna.this,"Kliknięto by dodać wydarzenie",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        kierunekLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                Toast.makeText(StronaGlowna.this,"Kliknięto by dodać kierunek",Toast.LENGTH_SHORT).show();
 
             }
         });
