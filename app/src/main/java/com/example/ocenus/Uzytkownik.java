@@ -56,4 +56,8 @@ public class Uzytkownik {
         this.password = password;
     }
 
+    public List<Kierunek> getCourses() {
+        return courses;
+    }
+
 }

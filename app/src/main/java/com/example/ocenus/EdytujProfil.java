@@ -189,7 +189,9 @@ public class EdytujProfil extends AppCompatActivity {
                     String key = databaseReference.push().getKey();
                     databaseReference.child(key).setValue(uzytkownik);
                     //Toast.makeText(EdytujProfil.this, "Udane", Toast.LENGTH_SHORT).show();
+                    String login = intent.getStringExtra("login");
                     Intent intent = new Intent(EdytujProfil.this, StronaGlowna.class);
+                    intent.putExtra("login", login);
                     startActivity(intent);
                     finish();
                 }

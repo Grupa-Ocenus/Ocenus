@@ -1,13 +1,14 @@
 package com.example.ocenus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Kierunek {
     private String courseName;
     private List<Przedmiot> subjects;
-    public Kierunek(String courseName, List<Przedmiot> subjects) {
+    public Kierunek(String courseName) {
         this.courseName = courseName;
-        this.subjects = subjects;
+        this.subjects = new ArrayList<>();
     }
 
     public String getCourseName() {
