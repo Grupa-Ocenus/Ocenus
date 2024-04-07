@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dialogbkg">
+    android:background="@drawable/dialogbkg"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_remove_24"
         android:layout_gravity="center|top"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_remove_24" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,12 +66,34 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutPrzedmiot"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_dod_ocene_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/asap"
+            android:text="@string/dodaj_prz"
+            android:textColor="@color/ocenusowski"
+            android:textSize="18sp" />
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/layoutWydarzenie"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="10dp">
 
 
@@ -83,18 +105,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dodaj_wydarzenie"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/ocenusowski"
             android:layout_marginStart="30dp"
-            android:textSize="18sp"/>
+            android:fontFamily="@font/asap"
+            android:text="@string/dodaj_wydarzenie"
+            android:textColor="@color/ocenusowski"
+            android:textSize="18sp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/layoutKierunek"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="10dp">
 
 
@@ -106,11 +129,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dodaj Kierunek"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/ocenusowski"
             android:layout_marginStart="30dp"
-            android:textSize="18sp"/>
+            android:fontFamily="@font/asap"
+            android:text="Dodaj Kierunek"
+            android:textColor="@color/ocenusowski"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

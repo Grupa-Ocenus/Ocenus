@@ -45,6 +45,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dodaj_ocen">Dodaj Ocenę</string>
+    <string name="dodaj_prz">Dodaj Przedmiot</string>
     <string name="dodaj_wydarzenie">Dodaj Wydarzenie</string>
     <string name="dodaj">Dodaj</string>
     <string name="imie_nazwisko">Imie Nazwisko</string>

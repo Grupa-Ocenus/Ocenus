@@ -1,9 +1,13 @@
 package com.example.ocenus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Uzytkownik {
 
     private String login, password;
     private DaneUzytkownika dane;
+    private List<Kierunek> courses;
 
     private String imageURL;
 
@@ -25,6 +29,7 @@ public class Uzytkownik {
         this.login = login;
         this.password = password;
         this.dane = dane;
+        this.courses = new ArrayList<>();
     }
 
     public DaneUzytkownika getDane() {
