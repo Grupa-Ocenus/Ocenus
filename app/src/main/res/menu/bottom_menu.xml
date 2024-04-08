@@ -10,7 +10,7 @@
     <item
         android:id="@+id/Statystyki"
         android:title="@string/statystyki"
-        android:icon="@drawable/baseline_stats_24"
+        android:icon="@drawable/baseline_leaderboard_24"
         />
 
     <item
@@ -19,7 +19,7 @@
     <item
         android:id="@+id/Wydarzenia"
         android:title="@string/wydarzenia"
-        android:icon="@drawable/baseline_notifs_24" />
+        android:icon="@drawable/baseline_event_24" />
     <item
         android:id="@+id/Edycja"
         android:title="@string/edycja"

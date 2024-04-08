@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/tlo_ocenus"
     tools:context=".Rejestracja">
 
     <EditText
@@ -16,6 +16,7 @@
         android:layout_marginBottom="81dp"
         android:autofillHints=""
         android:background="@drawable/ocenus_ramka"
+        android:drawableStart="@drawable/baseline_lock_24"
         android:drawablePadding="8dp"
         android:hint="@string/has_o1"
         android:fontFamily="@font/asap"
@@ -37,6 +38,7 @@
         android:textAllCaps="false"
         android:textSize="42sp"
         android:textStyle="bold|italic"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/signup_login"
         app:layout_constraintHorizontal_bias="0.75"
@@ -70,6 +72,7 @@
         android:layout_marginTop="160dp"
         android:autofillHints=""
         android:background="@drawable/ocenus_ramka"
+        android:drawableStart="@drawable/baseline_person_24"
         android:drawablePadding="8dp"
         android:hint="@string/email"
         android:fontFamily="@font/asap"
