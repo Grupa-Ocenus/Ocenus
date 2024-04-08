@@ -103,7 +103,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_dod_notif_24" />
+            android:src="@drawable/baseline_event2_24" />
 
         <TextView
             android:layout_width="wrap_content"
