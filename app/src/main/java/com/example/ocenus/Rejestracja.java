@@ -16,7 +16,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class Rejestracja extends AppCompatActivity {
     EditText signupLogin, signupPassword;
-    TextView loginRedirectText;
+
     Button signupButton;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -28,7 +28,7 @@ public class Rejestracja extends AppCompatActivity {
         setContentView(R.layout.activity_rejestracja);
         signupLogin = findViewById(R.id.signup_login);
         signupPassword = findViewById(R.id.signup_password);
-        loginRedirectText = findViewById(R.id.loginRedirectText);
+
         signupButton = findViewById(R.id.signup_button);
         signupButton.setOnClickListener(view -> {
 
@@ -52,9 +52,6 @@ public class Rejestracja extends AppCompatActivity {
             }
 
         });
-        loginRedirectText.setOnClickListener(view -> {
-            Intent intent = new Intent(Rejestracja.this, Logowanie.class);
-            startActivity(intent);
-        });
+
     }
 }

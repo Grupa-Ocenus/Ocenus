@@ -47,23 +47,6 @@
         app:layout_constraintVertical_bias="0.207"
         tools:ignore="TextSizeCheck" />
 
-    <TextView
-        android:id="@+id/loginRedirectText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="296dp"
-        android:padding="8dp"
-        android:text="@string/masz_konto_zaloguj_si"
-        android:fontFamily="@font/asap"
-        android:textColor="@color/ocenusowski"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/signup_button"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="@+id/signup_button"
-        app:layout_constraintTop_toBottomOf="@+id/signup_button"
-        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/signup_login"

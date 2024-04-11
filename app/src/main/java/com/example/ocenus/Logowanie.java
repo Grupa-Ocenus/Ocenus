@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class Logowanie extends AppCompatActivity {
     EditText loginLogin, loginPassword;
     Button loginButton;
 
+    TextView loginRedirectText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +36,17 @@ public class Logowanie extends AppCompatActivity {
         loginLogin = findViewById(R.id.login_login);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
+        loginRedirectText = findViewById(R.id.loginRedirectText);
 
         loginButton.setOnClickListener(view -> {
             if (validateLogin() & validatePassword()) {
                 checkUser();
             }
+        });
+
+        loginRedirectText.setOnClickListener(view -> {
+            Intent intent = new Intent(Logowanie.this, Rejestracja.class);
+            startActivity(intent);
         });
 
     }

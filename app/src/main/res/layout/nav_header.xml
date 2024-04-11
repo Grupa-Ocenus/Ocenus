@@ -10,24 +10,40 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/profileImageView"
+        android:id="@+id/profiloweImageView"
         android:layout_width="75dp"
         android:layout_height="150dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/profile" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/ImieId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_gravity="center_vertical"
-        android:layout_toEndOf="@id/profileImageView"
+        android:layout_toEndOf="@id/profiloweImageView"
         android:fontFamily="@font/asap"
         android:textSize="20dp"
-        android:text="@string/imie_nazwisko"
+        android:text="Imie"
         android:textColor="@color/white"
         android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/NazwiskoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/profiloweImageView"
+        android:fontFamily="@font/asap"
+        android:textSize="20dp"
+        android:text="Nazwisko"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+
 
 
 </LinearLayout>
