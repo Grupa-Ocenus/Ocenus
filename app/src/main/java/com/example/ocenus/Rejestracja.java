@@ -21,6 +21,8 @@ public class Rejestracja extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
 
+    TextView registerRedirectText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,23 +30,31 @@ public class Rejestracja extends AppCompatActivity {
         setContentView(R.layout.activity_rejestracja);
         signupLogin = findViewById(R.id.signup_login);
         signupPassword = findViewById(R.id.signup_password);
-
+        registerRedirectText = findViewById(R.id.registerRedirectText);
         signupButton = findViewById(R.id.signup_button);
+
+        registerRedirectText.setOnClickListener(view -> {
+            Intent intent = new Intent(Rejestracja.this, Logowanie.class);
+            startActivity(intent);
+        });
+
         signupButton.setOnClickListener(view -> {
 
             String login = signupLogin.getText().toString();
             String password = signupPassword.getText().toString();
 
-            if (!login.isEmpty() && !password.isEmpty()) {
-            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
-            reference = database.getReference("users");
-            String hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
-            Uzytkownik uzytkownik = new Uzytkownik(login, hashedPassword,new DaneUzytkownika(" "," "));
-            reference.child(login).setValue(uzytkownik);
-            Toast.makeText(Rejestracja.this, "You have signup successfully!", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(Rejestracja.this, Logowanie.class);
-            startActivity(intent);
+
+            if (!login.isEmpty() && !password.isEmpty()) {
+                database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
+                reference = database.getReference("users");
+                String hashedPassword = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+                Uzytkownik uzytkownik = new Uzytkownik(login, hashedPassword,new DaneUzytkownika(" "," "));
+                reference.child(login).setValue(uzytkownik);
+                Toast.makeText(Rejestracja.this, "You have signup successfully!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Rejestracja.this, Logowanie.class);
+                startActivity(intent);
             }
             else
             {
