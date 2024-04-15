@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.InputType;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -17,13 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -45,8 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StronaGlowna extends AppCompatActivity {
 
@@ -207,13 +201,13 @@ public class StronaGlowna extends AppCompatActivity {
             database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
             reference = database.getReference("users").child(login).child("courses");
 
-            Integer subjectSize = 0;
+            int subjectSize = 0;
             for(Kierunek course: uzytkownik.getCourses()){
                 subjectSize+=course.getSubjects().size();
             }
 
             String[] s = new String[subjectSize];
-            Integer counter = 0;
+            int counter = 0;
             for (Kierunek kierunek : uzytkownik.getCourses()) {
                 for(Przedmiot subject: kierunek.getSubjects()){
                     s[counter] = subject.getSubjectName();
@@ -247,7 +241,7 @@ public class StronaGlowna extends AppCompatActivity {
                     .setPositiveButton("OK", (dialog1, id) -> {
                         String subject = sp.getSelectedItem().toString();
                         Map<String,Object> values = new HashMap<>();
-                        values.put("name",String.valueOf(addGrade.getText()));
+//                        values.put("name",String.valueOf(addGrade.getText()));
                         values.put("grade",String.valueOf(addGrade2.getText()));
                         List<Przedmiot> subjects= new ArrayList<>();
                         for(Kierunek course: uzytkownik.getCourses()){
@@ -264,12 +258,12 @@ public class StronaGlowna extends AppCompatActivity {
                                 .stream()
                                 .filter(courseParam -> Objects.equals(subjectFound.getCourseName(), courseParam.getCourseName()))
                                 .collect(Collectors.toList()).stream().findFirst().get();
-                        Integer courseIndex = uzytkownik.getCourses().indexOf(courseFound);
+                        int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
                         Przedmiot subjectToAppend = courseFound.getSubjects()
                                 .stream()
                                 .filter(subjectParam -> Objects.equals(subjectFound.getSubjectName(),subjectParam.getSubjectName()))
                                 .collect(Collectors.toList()).stream().findFirst().get();
-                        Integer subjectIndex = uzytkownik.getCourses().get(courseIndex).getSubjects().indexOf(subjectToAppend);
+                        int subjectIndex = uzytkownik.getCourses().get(courseIndex).getSubjects().indexOf(subjectToAppend);
 
                         uzytkownik.getCourses().get(courseIndex).getSubjects().get(subjectIndex).getGrades().add(grade);
 
@@ -285,14 +279,14 @@ public class StronaGlowna extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
             DatabaseReference reference = database.getReference("users").child(login).child("courses");
             String[] s = new String[uzytkownik.getCourses().size()];
-            Integer counter = 0;
+            int counter = 0;
             for (Kierunek kierunek : uzytkownik.getCourses()) {
                 s[counter] = kierunek.getCourseName();
                 counter++;
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
-            final ArrayAdapter<String> adp = new ArrayAdapter<String>(StronaGlowna.this,
+            final ArrayAdapter<String> adp = new ArrayAdapter<>(StronaGlowna.this,
                     android.R.layout.simple_spinner_item, s);
 
             final Spinner sp = new Spinner(StronaGlowna.this);
@@ -316,7 +310,7 @@ public class StronaGlowna extends AppCompatActivity {
                     .setPositiveButton("OK", (dialog1, id) -> {
                         String course = sp.getSelectedItem().toString();
                         Map<String,Object> values = new HashMap<>();
-                        values.put("name",String.valueOf(addCourse.getText()));
+//                        values.put("name",String.valueOf(addCourse.getText()));
                         values.put("ects",String.valueOf(addCourse2.getText()));
                         reference.child(course).child("subjects").child(String.valueOf(addCourse.getText())).updateChildren(values);
                         Toast.makeText(StronaGlowna.this,"Dodano przedmiot!",Toast.LENGTH_SHORT).show();
@@ -325,7 +319,7 @@ public class StronaGlowna extends AppCompatActivity {
                                 .stream()
                                 .filter(courseParam -> course.equals(courseParam.getCourseName()))
                                 .collect(Collectors.toList()).stream().findFirst().get();
-                        Integer courseIndex = uzytkownik.getCourses().indexOf(courseFound);
+                        int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
                         uzytkownik.getCourses().get(courseIndex).getSubjects().add(subject);
 
                     });

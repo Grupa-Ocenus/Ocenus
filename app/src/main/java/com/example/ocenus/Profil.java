@@ -5,21 +5,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class Profil extends AppCompatActivity {
 
     TextView profileName, profileSurname,profileLogin;
     Button editProfile;
-
+    Button goToMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +22,10 @@ public class Profil extends AppCompatActivity {
         profileSurname = findViewById(R.id.profileNazwisko);
         profileLogin = findViewById(R.id.profileLogowanie);
         editProfile = findViewById(R.id.editButton);
+        goToMain = findViewById(R.id.goToMain);
 
-        editProfile.setOnClickListener(view -> {
-            goToEdit();
-        });
+        editProfile.setOnClickListener(view -> goToEdit());
+        goToMain.setOnClickListener(view -> goToMain());
 
     }
 
@@ -57,6 +49,13 @@ public class Profil extends AppCompatActivity {
 
     private void goToEdit(){
         Intent intent = new Intent(Profil.this, EdytujProfil.class);
+
+        intent.putExtra("login",profileLogin.getText());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+    private void goToMain(){
+        Intent intent = new Intent(Profil.this, StronaGlowna.class);
 
         intent.putExtra("login",profileLogin.getText());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
