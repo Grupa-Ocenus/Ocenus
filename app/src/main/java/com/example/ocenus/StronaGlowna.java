@@ -1,5 +1,6 @@
 package com.example.ocenus;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -53,6 +54,9 @@ public class StronaGlowna extends AppCompatActivity {
     DatabaseReference reference;
 
     Uzytkownik uzytkownik;
+
+
+
     /*
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -71,11 +75,14 @@ public class StronaGlowna extends AppCompatActivity {
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
     */
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strona_glowna);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         intent = getIntent();
         login = intent.getStringExtra("login");
