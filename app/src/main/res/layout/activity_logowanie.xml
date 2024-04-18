@@ -71,8 +71,8 @@
         android:layout_height="57dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="#C30000"
-        android:text="@string/zaloguj_si"
         android:fontFamily="@font/asap"
+        android:text="@string/zaloguj_si"
         android:textAllCaps="true"
         android:textSize="18sp"
         app:cornerRadius="30dp"
@@ -156,5 +156,16 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/baseline_settings2_24"
         tools:ignore="ContentDescription" />
+
+    <CheckBox
+        android:id="@+id/zapamietajmnie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="101dp"
+        android:text="Zapamiętaj mnie"
+        android:textColor="@color/ocenusowski"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

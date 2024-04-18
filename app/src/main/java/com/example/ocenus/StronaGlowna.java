@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -141,10 +142,15 @@ public class StronaGlowna extends AppCompatActivity {
                     replaceFragment(new SettingsFragment());
                     break;
                 case R.id.nav_wyloguj:
-                    Intent intent = new Intent(this, Logowanie.class);
-                    startActivity(intent);
-                    finish();
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Intent intent = new Intent(StronaGlowna.this, Logowanie.class); // Replace YourCurrentActivity with the appropriate activity name
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear the activity stack
+                    startActivity(intent); // Navigate back to the login page
                     break;
+
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
