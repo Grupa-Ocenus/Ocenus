@@ -1,0 +1,1 @@
+Ocenus is an app where you can track your progress in learning and see all grades at your university. You can add different subjects, grades and events to your school calendar. There will be more options coming soon!
