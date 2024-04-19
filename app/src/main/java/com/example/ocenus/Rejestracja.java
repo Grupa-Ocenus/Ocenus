@@ -62,9 +62,9 @@ public class Rejestracja extends AppCompatActivity {
                             String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
                             Uzytkownik uzytkownik = new Uzytkownik(login, hashedPassword, new DaneUzytkownika(" ", " "));
                             reference.child(login).setValue(uzytkownik);
-                            Toast.makeText(Rejestracja.this, "You have signed up successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Rejestracja.this, "Rejestracja przebiegła pomyślnie!", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(Rejestracja.this, Logowanie.class);
+                            Intent intent = new Intent(Rejestracja.this, Profil.class);
                             startActivity(intent);
                         }
                     }
@@ -72,7 +72,7 @@ public class Rejestracja extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         // Handle errors, if any
-                        Toast.makeText(Rejestracja.this, "Database error. Please try again later.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Rejestracja.this, "Błąd bazy danych. Spróbuj ponownie później.", Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {

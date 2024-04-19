@@ -53,7 +53,7 @@ public class Logowanie extends AppCompatActivity {
                 finish(); // Finish the current activity to prevent going back to login page
             }
         } else if (checkbox.equals("false")) {
-            Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Zaloguj się!", Toast.LENGTH_SHORT).show();
         }
 
         loginButton.setOnClickListener(view -> {
@@ -74,7 +74,7 @@ public class Logowanie extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("remember", b ? "true" : "false");
                 editor.apply();
-                Toast.makeText(Logowanie.this, b ? "Checked" : "Unchecked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Logowanie.this, b ? "Checked" : "Unchecked", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -82,7 +82,7 @@ public class Logowanie extends AppCompatActivity {
     public Boolean validateLogin() {
         String val = loginLogin.getText().toString();
         if (val.isEmpty()) {
-            loginLogin.setError("Username cannot be empty");
+            loginLogin.setError("Pole login nie może być puste!");
             return false;
         } else {
             loginLogin.setError(null);
@@ -93,7 +93,7 @@ public class Logowanie extends AppCompatActivity {
     public Boolean validatePassword() {
         String val = loginPassword.getText().toString();
         if (val.isEmpty()) {
-            loginPassword.setError("Password cannot be empty");
+            loginPassword.setError("Pole hasło nie może być puste!");
             return false;
         } else {
             loginPassword.setError(null);
@@ -135,11 +135,11 @@ public class Logowanie extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        loginPassword.setError("Invalid Credentials");
+                        loginPassword.setError("Niepoprawne hasło!");
                         loginPassword.requestFocus();
                     }
                 } else {
-                    loginLogin.setError("User does not exist");
+                    loginLogin.setError("Użytkownik o podanym loginie nie istnieje!");
                     loginLogin.requestFocus();
                 }
             }

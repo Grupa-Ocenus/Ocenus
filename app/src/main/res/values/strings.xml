@@ -56,6 +56,19 @@
     <string name="wydarzenia">Wydarzenia</string>
     <string name="edycja">Edycja</string>
     <string name="g_wna">Główna</string>
+    <string name="nie_pami_tam_has_a">Nie pamiętam hasła</string>
+    <string name="zapami_taj_mnie2">Zapamiętaj mnie</string>
+    <string name="nie_masz_konta_zarejestruj_si">Nie masz konta? Zarejestruj się!</string>
+    <string name="akceptuj_regulamin_i_zasady_u_ytkowania">Akceptuję Regulamin i Zasady Użytkowania</string>
+    <string name="masz_konto_zaloguj_si2">Masz konto? Zaloguj się!</string>
+    <string name="login4">Login</string>
+    <string name="login5">Login</string>
+    <string name="nazwisko3">Nazwisko</string>
+    <string name="nazwisko5">Nazwisko</string>
+    <string name="imie1">Imię</string>
+    <string name="imie4">Imię</string>
+    <string name="edytuj_profil3">Edytuj Profil</string>
+    <string name="strona_g_wna1">STRONA GŁÓWNA</string>
 
 
 </resources>
