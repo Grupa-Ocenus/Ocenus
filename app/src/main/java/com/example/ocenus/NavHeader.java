@@ -1,23 +1,33 @@
 package com.example.ocenus;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class NavHeader extends AppCompatActivity {
 
-    private TextView imieTextView;
-    private TextView nazwiskoTextView;
+    private TextView imie;
+    private TextView nazwisko;
+
+    private ImageView zdjecie;
+
     private DatabaseReference mDatabase;
     String login;
+    private Intent intent;
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +59,29 @@ public class NavHeader extends AppCompatActivity {
             }
         });
     }
+
+     */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.nav_header);
+
+        imie = findViewById(R.id.ImieId);
+        nazwisko = findViewById(R.id.NazwiskoId);
+        zdjecie = findViewById(R.id.profiloweImageView);
+
+        showAllUserData();
+    }
+
+    private void showAllUserData() {
+
+        Intent intent = getIntent();
+        String Imie_osoby = intent.getStringExtra("name");
+        String Nazwisko_osoby = intent.getStringExtra("username");
+
+        imie.setText(Imie_osoby);
+        imie.setText(Nazwisko_osoby);
+    }
+
 }
-
-
-

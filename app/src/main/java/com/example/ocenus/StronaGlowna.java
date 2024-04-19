@@ -56,26 +56,6 @@ public class StronaGlowna extends AppCompatActivity {
 
     Uzytkownik uzytkownik;
 
-
-
-    /*
-    private boolean doubleBackToExitPressedOnce = false;
-
-
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            finishAffinity();
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Naciśnij dwukrotnie, aby zamknąć aplikację", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-    }
-    */
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
