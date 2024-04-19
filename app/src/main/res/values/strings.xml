@@ -69,6 +69,7 @@
     <string name="imie4">Imię</string>
     <string name="edytuj_profil3">Edytuj Profil</string>
     <string name="strona_g_wna1">STRONA GŁÓWNA</string>
+    <string name="password_visibility_toggle1">password_visibility_toggle</string>
 
 
 </resources>

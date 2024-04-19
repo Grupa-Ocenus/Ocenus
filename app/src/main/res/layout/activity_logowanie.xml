@@ -17,7 +17,6 @@
         android:autofillHints=""
         android:background="@drawable/ocenus_ramka"
         android:drawableStart="@drawable/baseline_lock_24"
-        android:drawableEnd="@drawable/baseline_visibility_off_24"
         android:drawablePadding="8dp"
         android:fontFamily="@font/asap"
         android:hint="@string/has_o1"
@@ -25,7 +24,7 @@
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="@+id/login_login"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/login_login"
         app:layout_constraintTop_toBottomOf="@+id/login_login"
         app:layout_constraintVertical_bias="0.173" />
@@ -164,25 +163,43 @@
         android:layout_height="wrap_content"
         android:text="@string/zapami_taj_mnie2"
         android:textColor="@color/ocenusowski"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/NiePamietamHasla"
-        android:layout_width="139dp"
-        android:layout_height="48dp"
+        android:layout_width="150dp"
+        android:layout_height="31dp"
         android:layout_marginStart="60dp"
         android:text="@string/nie_pami_tam_has_a"
         android:textColor="@color/ocenusowski"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/zapamietajmnie"
         app:layout_constraintEnd_toEndOf="@+id/login_password"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/zapamietajmnie"
         tools:ignore="TextSizeCheck" />
+
+    <ImageView
+        android:id="@+id/showPasswordIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/password_visibility_toggle1"
+        android:src="@drawable/baseline_visibility_off_24"
+        app:layout_constraintBottom_toBottomOf="@+id/login_password"
+        app:layout_constraintEnd_toEndOf="@+id/login_password"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="@+id/login_password"
+        app:layout_constraintTop_toTopOf="@+id/login_password"
+        tools:ignore="TouchTargetSizeCheck"
+        android:focusable="true" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

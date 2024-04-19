@@ -3,15 +3,19 @@ package com.example.ocenus;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,17 +34,28 @@ public class Logowanie extends AppCompatActivity {
     Button loginButton;
     TextView loginRedirectText;
     CheckBox remember;
+    ImageView showPasswordIcon;
+    boolean passwordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logowanie);
 
+
         loginLogin = findViewById(R.id.login_login);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         loginRedirectText = findViewById(R.id.loginRedirectText);
         remember = findViewById(R.id.zapamietajmnie);
+        showPasswordIcon = findViewById(R.id.showPasswordIcon);
+
+        showPasswordIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(); // Call the method to toggle password visibility
+            }
+        });
 
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember", "");
@@ -79,6 +94,20 @@ public class Logowanie extends AppCompatActivity {
         });
     }
 
+    private void togglePasswordVisibility() {
+        if (passwordVisible) {
+            // If password is currently visible, hide it
+            loginPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_24); // Change icon to show hidden password
+        } else {
+            // If password is currently hidden, show it
+            loginPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_off_24); // Change icon to show visible password
+        }
+        passwordVisible = !passwordVisible; // Toggle the password visibility flag
+        loginPassword.setSelection(loginPassword.length()); // Set cursor position to the end of text
+        loginPassword.setTypeface(ResourcesCompat.getFont(this, R.font.asap));
+    }
     public Boolean validateLogin() {
         String val = loginLogin.getText().toString();
         if (val.isEmpty()) {
