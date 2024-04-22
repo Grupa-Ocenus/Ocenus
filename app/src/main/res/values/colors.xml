@@ -9,5 +9,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
     <color name="ocenusowski">#C30000</color>
+    <color name="grey_hint">#ACACAC</color>
+    <color name="motyw_noc">#242424</color>
+
 
 </resources>

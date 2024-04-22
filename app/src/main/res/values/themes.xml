@@ -21,4 +21,19 @@
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
+
+    <style name="EditTextStyle_Light" parent="Widget.AppCompat.EditText">
+        <!-- Ustaw tło ramki na jasne tło -->
+        <item name="android:background">@drawable/ocenus_ramka</item>
+        <!-- Ustaw kolor tekstu na domyślny -->
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="LoginTextStyle_Light" parent="Widget.AppCompat.EditText">
+        <!-- Ustaw tło ramki na jasne tło -->
+        <item name="android:background">@drawable/ocenus_ramka</item>
+        <!-- Ustaw kolor tekstu na domyślny -->
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

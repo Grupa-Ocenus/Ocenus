@@ -2,6 +2,8 @@ package com.example.ocenus;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +52,16 @@ public class Logowanie extends AppCompatActivity {
         loginRedirectText = findViewById(R.id.loginRedirectText);
         remember = findViewById(R.id.zapamietajmnie);
         showPasswordIcon = findViewById(R.id.showPasswordIcon);
+
+        setLoginEditTextStyle();
+        setEditTextStyle();
+
+        ConstraintLayout constraintLayout = findViewById(R.id.main);
+        if (isDarkThemeEnabled()) {
+            constraintLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie_noc);
+        } else {
+            constraintLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie);
+        }
 
         showPasswordIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +107,28 @@ public class Logowanie extends AppCompatActivity {
         });
     }
 
+    private void setLoginEditTextStyle() {
+        EditText loginEditText = findViewById(R.id.login_login);
+        if (isDarkThemeEnabled()) {
+            loginEditText.setBackgroundResource(R.drawable.ocenus_ramka_noc);
+            loginEditText.setTextColor(Color.WHITE);
+        } else {
+            loginEditText.setBackgroundResource(R.drawable.ocenus_ramka);
+            loginEditText.setTextColor(Color.BLACK);
+        }
+    }
+
+    private void setEditTextStyle() {
+        EditText loginPassword = findViewById(R.id.login_password);
+        if (isDarkThemeEnabled()) {
+            loginPassword.setBackgroundResource(R.drawable.ocenus_ramka_noc);
+            loginPassword.setTextColor(Color.WHITE);
+        } else {
+            loginPassword.setBackgroundResource(R.drawable.ocenus_ramka);
+            loginPassword.setTextColor(Color.BLACK);
+        }
+    }
+
     private void togglePasswordVisibility() {
         if (passwordVisible) {
             // If password is currently visible, hide it
@@ -119,6 +154,11 @@ public class Logowanie extends AppCompatActivity {
         }
     }
 
+    private boolean isDarkThemeEnabled() {
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     public Boolean validatePassword() {
         String val = loginPassword.getText().toString();
         if (val.isEmpty()) {
@@ -128,6 +168,10 @@ public class Logowanie extends AppCompatActivity {
             loginPassword.setError(null);
             return true;
         }
+    }
+
+    public void showSettingsDialog(View view) {
+        UstawieniaGlowne.showSettingsDialog(this);
     }
 
     public void checkUser() {

@@ -1,6 +1,8 @@
 package com.example.ocenus;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.firebase.database.DataSnapshot;
@@ -49,11 +52,18 @@ public class Rejestracja extends AppCompatActivity {
         showPasswordIcon = findViewById(R.id.showPasswordIcon);
         regulaminCheckBox = findViewById(R.id.regulaminBox);
 
-        showPasswordIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togglePasswordVisibility(); // Wywołaj metodę do przełączania widoczności hasła
-            }
+        setLoginEditTextStyle();
+        setEditTextStyle();
+
+        ConstraintLayout constraintLayout = findViewById(R.id.main);
+        if (isDarkThemeEnabled()) {
+            constraintLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie_noc);
+        } else {
+            constraintLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie);
+        }
+
+        showPasswordIcon.setOnClickListener(v -> {
+            togglePasswordVisibility(); // Wywołaj metodę do przełączania widoczności hasła
         });
 
 
@@ -107,6 +117,48 @@ public class Rejestracja extends AppCompatActivity {
 
 
     }
+
+    private void setLoginEditTextStyle() {
+        EditText signupEditText = findViewById(R.id.signup_login);
+        if (isDarkThemeEnabled()) {
+            signupEditText.setBackgroundResource(R.drawable.ocenus_ramka_noc);
+            signupEditText.setTextColor(Color.WHITE);
+        } else {
+            signupEditText.setBackgroundResource(R.drawable.ocenus_ramka);
+            signupEditText.setTextColor(Color.BLACK);
+        }
+    }
+
+    private void setEditTextStyle() {
+        EditText signupPassword = findViewById(R.id.signup_password);
+        if (isDarkThemeEnabled()) {
+            signupPassword.setBackgroundResource(R.drawable.ocenus_ramka_noc);
+            signupPassword.setTextColor(Color.WHITE);
+        } else {
+            signupPassword.setBackgroundResource(R.drawable.ocenus_ramka);
+            signupPassword.setTextColor(Color.BLACK);
+        }
+    }
+
+    private void setLoginFrameStyle() {
+        ConstraintLayout mainLayout = findViewById(R.id.main);
+        if (isDarkThemeEnabled()) {
+            mainLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie_noc);
+        } else {
+            mainLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie);
+        }
+    }
+
+
+    private boolean isDarkThemeEnabled() {
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public void showSettingsDialog(View view) {
+        UstawieniaGlowne.showSettingsDialog(this);
+    }
+
     private void togglePasswordVisibility() {
         if (passwordVisible) {
             // Jeśli hasło jest aktualnie widoczne, ukryj je

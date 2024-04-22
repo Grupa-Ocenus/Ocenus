@@ -70,6 +70,14 @@
     <string name="edytuj_profil3">Edytuj Profil</string>
     <string name="strona_g_wna1">STRONA GŁÓWNA</string>
     <string name="password_visibility_toggle1">password_visibility_toggle</string>
+    <string name="stan_powiadomie">Stan powiadomień:</string>
+    <string name="w_czone">Włączone</string>
+    <string name="powiadomienia_ikona">Powiadomienia ikona</string>
+    <string name="powiadomienia">Powiadomienia:</string>
+    <string name="stan_muzyki">Stan muzyki:</string>
+    <string name="w_czona">Włączona</string>
+    <string name="muzyka_ikona">Muzyka ikona</string>
+    <string name="muzyka">Muzyka:</string>
 
 
 </resources>
