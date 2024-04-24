@@ -3,9 +3,12 @@ package com.example.ocenus;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -25,6 +28,8 @@ public class UstawieniaGlowne {
         Switch musicSwitch = view.findViewById(R.id.musicSwitch);
         TextView notificationStatus = view.findViewById(R.id.notificationStatus);
         TextView musicStatus = view.findViewById(R.id.musicStatus);
+        ImageView notificationIcon = view.findViewById(R.id.notificationIcon);
+        ImageView musicIcon = view.findViewById(R.id.musicIcon);
 
         // Przypisanie stanu przełączników na podstawie danych z SharedPreferences
         boolean notificationChecked = sharedPreferences.getBoolean("notificationSwitch", false);
@@ -74,6 +79,13 @@ public class UstawieniaGlowne {
             musicStatus.setText("Wyłączona");
         }
 
+        int notificationIconResId = isDarkThemeEnabled() ? R.drawable.baseline_notifications_24_night : R.drawable.baseline_notifications_24;
+        notificationIcon.setImageResource(notificationIconResId);
+
+        // Ustawienie ikony muzyki na podstawie motywu
+        int musicIconResId = isDarkThemeEnabled() ? R.drawable.baseline_music_note_24_night : R.drawable.baseline_music_note_24;
+        musicIcon.setImageResource(musicIconResId);
+
         builder.setPositiveButton("OK", (dialog, which) -> {
             // Tu możesz dodać dodatkową logikę po naciśnięciu przycisku OK
         });
@@ -81,5 +93,9 @@ public class UstawieniaGlowne {
         builder.setNegativeButton("Anuluj", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
+    }
+    private static boolean isDarkThemeEnabled() {
+        int nightModeFlags = Resources.getSystem().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 }
