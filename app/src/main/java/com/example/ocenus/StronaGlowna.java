@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -64,9 +65,17 @@ public class StronaGlowna extends AppCompatActivity {
         setContentView(R.layout.activity_strona_glowna);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-
         intent = getIntent();
         login = intent.getStringExtra("login");
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            // Jasny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+        } else {
+            // Ciemny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+        }
 
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
@@ -178,6 +187,8 @@ public class StronaGlowna extends AppCompatActivity {
 
     private void showBottomDialog() {
 
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
@@ -186,8 +197,14 @@ public class StronaGlowna extends AppCompatActivity {
         LinearLayout przedmiotLayout = dialog.findViewById(R.id.layoutPrzedmiot);
         LinearLayout wydarzenieLayout = dialog.findViewById(R.id.layoutWydarzenie);
         LinearLayout kierunekLayout = dialog.findViewById(R.id.layoutKierunek);
-
+        LinearLayout dialogLayout = dialog.findViewById(R.id.dialog_layout);
         ImageView cancelButton = dialog.findViewById(R.id.cofnij_dodaj);
+
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            dialogLayout.setBackgroundResource(R.drawable.dialogbkg); // Dla motywu jasnego
+        } else {
+            dialogLayout.setBackgroundResource(R.drawable.dialogbkg_night); // Dla motywu ciemnego
+        }
 
         ocenaLayout.setOnClickListener(v -> {
 

@@ -3,6 +3,7 @@ package com.example.ocenus;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -67,6 +69,14 @@ public class EdytujProfil extends AppCompatActivity {
         //confirmButton.setOnClickListener(view -> {
         //saveChanges();
         //});
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            // Jasny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+        } else {
+            // Ciemny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+        }
 
         login = intent.getStringExtra("login");
 

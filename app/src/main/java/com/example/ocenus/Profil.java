@@ -1,11 +1,13 @@
 package com.example.ocenus;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Profil extends AppCompatActivity {
 
@@ -17,7 +19,6 @@ public class Profil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_profil);
-
         profileName = findViewById(R.id.profileImie);
         profileSurname = findViewById(R.id.profileNazwisko);
         profileLogin = findViewById(R.id.profileLogowanie);
@@ -26,6 +27,16 @@ public class Profil extends AppCompatActivity {
 
         editProfile.setOnClickListener(view -> goToEdit());
         goToMain.setOnClickListener(view -> goToMain());
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            // Jasny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+        } else {
+            // Ciemny motyw
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+        }
+
 
     }
 

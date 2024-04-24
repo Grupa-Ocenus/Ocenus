@@ -79,5 +79,9 @@
     <string name="muzyka_ikona">Muzyka ikona</string>
     <string name="muzyka">Muzyka:</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="adowanie_prosz_czeka">Ładowanie, proszę czekać...</string>
+
 
 </resources>

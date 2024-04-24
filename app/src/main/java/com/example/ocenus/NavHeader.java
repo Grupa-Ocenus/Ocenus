@@ -1,6 +1,7 @@
 package com.example.ocenus;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,6 +73,7 @@ public class NavHeader extends AppCompatActivity {
         zdjecie = findViewById(R.id.profiloweImageView);
 
         showAllUserData();
+
     }
 
     private void showAllUserData() {
