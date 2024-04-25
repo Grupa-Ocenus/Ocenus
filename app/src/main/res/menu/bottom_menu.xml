@@ -1,28 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/StronaGlowna"
         android:title="@string/g_wna"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_home_24"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/Statystyki"
         android:title="@string/statystyki"
         android:icon="@drawable/baseline_leaderboard_24"
-        />
+        app:showAsAction="always"/>
 
     <item
-        android:title=""/>
+        android:id="@+id/Przerwa"
+        android:enabled="false"
+        android:title=""
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/Wydarzenia"
         android:title="@string/wydarzenia"
-        android:icon="@drawable/baseline_event_24" />
+        android:icon="@drawable/baseline_event_24"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/Edycja"
         android:title="@string/edycja"
-        android:icon="@drawable/baseline_settings_24" />
+        android:icon="@drawable/baseline_settings_24"
+        app:showAsAction="always"/>
 
 </menu>
