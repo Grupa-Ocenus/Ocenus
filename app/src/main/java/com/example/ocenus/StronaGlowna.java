@@ -127,8 +127,23 @@ public class StronaGlowna extends AppCompatActivity {
                 case R.id.nav_home:
                     replaceFragment(new HomeFragment());
                     break;
+                case R.id.nav_profil:
+                    Toast.makeText(this, "Kliknięto mój profil!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_wydarzenia:
+                    replaceFragment(new WydarzeniaFragment());
+                    break;
+                case R.id.nav_statystyki:
+                    replaceFragment(new StatystykiFragment());
+                    break;
                 case R.id.nav_ustawienia:
                     replaceFragment(new SettingsFragment());
+                    break;
+                case R.id.nav_blad:
+                    Toast.makeText(this, "Kliknięto zgłoś błąd!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_informacje:
+                    Toast.makeText(this, "Kliknięto informacje o aplikacji!", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.nav_wyloguj:
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
@@ -142,6 +157,7 @@ public class StronaGlowna extends AppCompatActivity {
 
             }
             drawerLayout.closeDrawer(GravityCompat.START);
+            navigationView.setCheckedItem(item.getItemId());
             return true;
         });
 
