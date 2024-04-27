@@ -432,11 +432,16 @@ public class StronaGlowna extends AppCompatActivity {
                     .setMessage("Nazwa kierunku")
                     .setCancelable(true)
                     .setPositiveButton("OK", (dialog1, id) -> {
-                        Map<String,Object> values = new HashMap<>();
-                        values.put(String.valueOf(addCourse.getText()),String.valueOf(addCourse.getText()));
-                        reference.updateChildren(values);
-                        Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
-                        uzytkownik.getCourses().add(new Kierunek(String.valueOf(addCourse.getText())));
+                        String courseName = addCourse.getText().toString().trim();
+                        if (!courseName.isEmpty()) {
+                            Map<String,Object> values = new HashMap<>();
+                            values.put(courseName, courseName);
+                            reference.updateChildren(values);
+                            Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
+                            uzytkownik.getCourses().add(new Kierunek(courseName));
+                        } else {
+                            Toast.makeText(StronaGlowna.this, "Wprowadź nazwę kierunku!", Toast.LENGTH_SHORT).show();
+                        }
                     });
 
             AlertDialog alert = builder.create();

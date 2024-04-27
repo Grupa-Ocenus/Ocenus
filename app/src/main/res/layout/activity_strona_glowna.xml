@@ -9,7 +9,8 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     android:theme="?attr/android:background"
-    tools:context=".StronaGlowna">
+    tools:context=".StronaGlowna"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
