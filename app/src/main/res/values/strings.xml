@@ -82,6 +82,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="adowanie_prosz_czeka">Ładowanie, proszę czekać...</string>
+    <string name="strona_g_wna">Strona Główna</string>
+    <string name="m_j_profil">Mój profil</string>
+    <string name="dla_studenta">Dla studenta</string>
+    <string name="inne">Inne</string>
+    <string name="zg_o_b_d">Zgłoś błąd</string>
+    <string name="o_aplikacji">O aplikacji</string>
+    <string name="nazwisko">Nazwisko</string>
+    <string name="nazwisk">Nazwisko</string>
 
 
 </resources>

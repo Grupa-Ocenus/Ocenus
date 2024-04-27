@@ -10,7 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -54,28 +59,23 @@ public class StronaGlowna extends AppCompatActivity {
     String login;
     FirebaseDatabase database;
     DatabaseReference reference;
-
     Uzytkownik uzytkownik;
 
-    @SuppressLint("MissingInflatedId")
+
+
+    @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strona_glowna);
 
+
         drawerLayout = findViewById(R.id.drawer_layout);
         intent = getIntent();
         login = intent.getStringExtra("login");
 
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
-            // Jasny motyw
-            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
-        } else {
-            // Ciemny motyw
-            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
-        }
+
 
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
@@ -106,6 +106,7 @@ public class StronaGlowna extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         drawerLayout=findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemBackgroundResource(R.drawable.checked_item);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -120,32 +121,51 @@ public class StronaGlowna extends AppCompatActivity {
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
+
         replaceFragment(new HomeFragment());
 
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+        } else {
+            changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.BLACK);
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+        }
+
         navigationView.setNavigationItemSelectedListener(item -> {
+            resetMenuItemColors(navigationView);
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     replaceFragment(new HomeFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.WHITE);
                     break;
                 case R.id.nav_profil:
                     Toast.makeText(this, "Kliknięto mój profil!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_profil, Color.WHITE);
                     break;
                 case R.id.nav_wydarzenia:
                     replaceFragment(new WydarzeniaFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_wydarzenia, Color.WHITE);
                     break;
                 case R.id.nav_statystyki:
                     replaceFragment(new StatystykiFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_statystyki, Color.WHITE);
                     break;
                 case R.id.nav_ustawienia:
                     replaceFragment(new SettingsFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_ustawienia, Color.WHITE);
                     break;
                 case R.id.nav_blad:
                     Toast.makeText(this, "Kliknięto zgłoś błąd!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_blad, Color.WHITE);
                     break;
                 case R.id.nav_informacje:
                     Toast.makeText(this, "Kliknięto informacje o aplikacji!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_informacje, Color.WHITE);
                     break;
                 case R.id.nav_wyloguj:
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_wyloguj, Color.WHITE);
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
@@ -156,6 +176,7 @@ public class StronaGlowna extends AppCompatActivity {
                     break;
 
             }
+
             drawerLayout.closeDrawer(GravityCompat.START);
             navigationView.setCheckedItem(item.getItemId());
             return true;
@@ -200,6 +221,39 @@ public class StronaGlowna extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
+
+    private void changeMenuItemColor(Menu menu, int menuItemId, int color) {
+        MenuItem menuItem = menu.findItem(menuItemId);
+        SpannableString spannable = new SpannableString(menuItem.getTitle());
+        spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(), 0);
+        menuItem.setTitle(spannable);
+    }
+
+
+    private void resetMenuItemColors(NavigationView navigationView) {
+        Menu menu = navigationView.getMenu();
+        // Iterujemy po każdym elemencie menu
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            if (menuItem.hasSubMenu()) {
+                SubMenu subMenu = menuItem.getSubMenu();
+                // Iterujemy po elementach submenu
+                for (int j = 0; j < subMenu.size(); j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    // Ustawiamy kolor tekstu na czarny
+                    SpannableString spannable = new SpannableString(subMenuItem.getTitle());
+                    spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
+                    subMenuItem.setTitle(spannable);
+                }
+            } else {
+                // Ustawiamy kolor tekstu na czarny dla pojedynczych elementów menu
+                SpannableString spannable = new SpannableString(menuItem.getTitle());
+                spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
+                menuItem.setTitle(spannable);
+            }
+        }
+    }
+
 
     private void showBottomDialog() {
 

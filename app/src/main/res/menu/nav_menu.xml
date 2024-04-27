@@ -11,19 +11,21 @@
                 android:id="@+id/nav_home"
                 android:icon="@drawable/baseline_home_24"
                 android:checkable="true"
-                android:title="Strona Główna"/>
+                android:title="@string/strona_g_wna"
+                android:titleCondensed="Strona Główna"
+                />
 
             <item
                 android:id="@+id/nav_profil"
                 android:icon="@drawable/baseline_person_24"
                 android:checkable="true"
-                android:title="Mój profil"
+                android:title="@string/m_j_profil"
                 />
 
     </group>
 
         <item
-            android:title="Dla studenta">
+            android:title="@string/dla_studenta">
 
             <menu>
 
@@ -31,14 +33,14 @@
                     android:id="@+id/nav_wydarzenia"
                     android:icon="@drawable/baseline_event_24"
                     android:checkable="true"
-                    android:title="Wydarzenia"
+                    android:title="@string/wydarzenia"
                     />
 
                 <item
                     android:id="@+id/nav_statystyki"
                     android:icon="@drawable/baseline_leaderboard_24"
                     android:checkable="true"
-                    android:title="Statystyki"
+                    android:title="@string/statystyki"
                     />
 
 
@@ -48,7 +50,7 @@
 
 
         <item
-            android:title="Inne">
+            android:title="@string/inne">
 
             <menu>
 
@@ -63,16 +65,14 @@
                     android:id="@+id/nav_blad"
                     android:icon="@drawable/baseline_bug_report_24"
                     android:checkable="true"
-                    android:title="Zgłoś błąd"
-
+                    android:title="@string/zg_o_b_d"
                     />
 
                 <item
                     android:id="@+id/nav_informacje"
                     android:icon="@drawable/baseline_info_24"
                     android:checkable="true"
-                    android:title="O aplikacji"
-
+                    android:title="@string/o_aplikacji"
                     />
 
                 <item
@@ -80,7 +80,6 @@
                     android:icon="@drawable/baseline_logout_24"
                     android:checkable="true"
                     android:title="@string/wyloguj"
-
                     />
             </menu>
         </item>

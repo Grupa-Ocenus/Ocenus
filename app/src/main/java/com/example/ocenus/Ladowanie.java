@@ -2,7 +2,8 @@ package com.example.ocenus;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-        import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Ladowanie extends AppCompatActivity {
 
