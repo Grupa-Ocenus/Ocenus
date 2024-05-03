@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -60,6 +62,7 @@ public class StronaGlowna extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     Uzytkownik uzytkownik;
+    ImageView profiloweImageView;
 
 
 
@@ -74,8 +77,54 @@ public class StronaGlowna extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         intent = getIntent();
         login = intent.getStringExtra("login");
+        profiloweImageView = findViewById(R.id.profiloweImageView);
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(login).child("dane");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String imie = dataSnapshot.child("name").getValue(String.class);
+                    String nazwisko = dataSnapshot.child("surname").getValue(String.class);
 
+                    TextView imieTextView = findViewById(R.id.ImieId);
+                    TextView nazwiskoTextView = findViewById(R.id.NazwiskoId);
+
+                    imieTextView.setText(imie);
+                    nazwiskoTextView.setText(nazwisko);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Obsłuż przypadki błędów pobierania danych
+                Toast.makeText(StronaGlowna.this, "Błąd pobierania danych użytkownika", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        DatabaseReference imgRef = FirebaseDatabase.getInstance().getReference("users").child(login).child("obrazy");
+        imgRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        String zdjecieUrl = childSnapshot.child("imageURL").getValue(String.class);
+                        ImageView profiloweImageView = findViewById(R.id.profiloweImageView);
+                        Glide.with(StronaGlowna.this)
+                                .load(zdjecieUrl)
+                                .circleCrop()
+                                .into(profiloweImageView);
+                    }
+                } else
+                {
+                    Toast.makeText(StronaGlowna.this, "Brak danych o obrazie profilowym", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(StronaGlowna.this, "Błąd pobierania danych użytkownika", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
