@@ -13,22 +13,23 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
 
     </style>
 
     <style name="EditTextStyle_Dark" parent="Widget.AppCompat.EditText">
-        <!-- Ustaw tło ramki na ciemne tło -->
         <item name="android:background">@drawable/ocenus_ramka_noc</item>
-        <!-- Ustaw kolor tekstu na biały -->
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="LoginTextStyle_Dark" parent="Widget.AppCompat.EditText">
-        <!-- Ustaw tło ramki na ciemne tło -->
         <item name="android:background">@drawable/ocenus_ramka_noc</item>
-        <!-- Ustaw kolor tekstu na biały -->
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="DarkTheme" parent="Base.Theme.Ocenus">
+    <item name="android:background">@color/motyw_noc</item>
+    </style>
+
 
 </resources>

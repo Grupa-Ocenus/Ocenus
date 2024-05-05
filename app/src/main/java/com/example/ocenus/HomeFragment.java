@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import androidx.fragment.app.Fragment;
+
 public class HomeFragment extends Fragment {
 
     private Uzytkownik uzytkownik;

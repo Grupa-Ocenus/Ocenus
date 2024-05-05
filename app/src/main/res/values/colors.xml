@@ -11,6 +11,7 @@
     <color name="ocenusowski">#C30000</color>
     <color name="grey_hint">#ACACAC</color>
     <color name="motyw_noc">#242424</color>
+    <color name="dialogbkg">#FFFFFF</color>
 
 
 </resources>

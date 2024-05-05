@@ -5,11 +5,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -30,6 +36,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -57,6 +64,8 @@ public class StronaGlowna extends AppCompatActivity {
     DatabaseReference reference;
 
     Uzytkownik uzytkownik;
+    ImageView profiloweImageView;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,14 +75,59 @@ public class StronaGlowna extends AppCompatActivity {
         setContentView(R.layout.activity_strona_glowna);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-
-
         intent = getIntent();
         login = intent.getStringExtra("login");
+        profiloweImageView = findViewById(R.id.profiloweImageView);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(login).child("dane");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String imie = dataSnapshot.child("name").getValue(String.class);
+                    String nazwisko = dataSnapshot.child("surname").getValue(String.class);
+
+                    TextView imieTextView = findViewById(R.id.ImieId);
+                    TextView nazwiskoTextView = findViewById(R.id.NazwiskoId);
+
+                    imieTextView.setText(imie);
+                    nazwiskoTextView.setText(nazwisko);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Obsłuż przypadki błędów pobierania danych
+                Toast.makeText(StronaGlowna.this, "Błąd pobierania danych użytkownika", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        DatabaseReference imgRef = FirebaseDatabase.getInstance().getReference("users").child(login).child("obrazy");
+        imgRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        String zdjecieUrl = childSnapshot.child("imageURL").getValue(String.class);
+                        ImageView profiloweImageView = findViewById(R.id.profiloweImageView);
+                        Glide.with(StronaGlowna.this)
+                                .load(zdjecieUrl)
+                                .circleCrop()
+                                .into(profiloweImageView);
+                    }
+                } else
+                {
+                    Toast.makeText(StronaGlowna.this, "Brak danych o obrazie profilowym", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(StronaGlowna.this, "Błąd pobierania danych użytkownika", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
-
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,6 +163,7 @@ public class StronaGlowna extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         drawerLayout=findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemBackgroundResource(R.drawable.checked_item);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -126,15 +181,48 @@ public class StronaGlowna extends AppCompatActivity {
         replaceFragment(new HomeFragment(uzytkownik));
 
 
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+        } else {
+            changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.BLACK);
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+        }
+
         navigationView.setNavigationItemSelectedListener(item -> {
+            resetMenuItemColors(navigationView);
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     replaceFragment(new HomeFragment(uzytkownik));
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.WHITE);
+                    break;
+                case R.id.nav_profil:
+                    Toast.makeText(this, "Kliknięto mój profil!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_profil, Color.WHITE);
+                    break;
+                case R.id.nav_wydarzenia:
+                    replaceFragment(new WydarzeniaFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_wydarzenia, Color.WHITE);
+                    break;
+                case R.id.nav_statystyki:
+                    replaceFragment(new StatystykiFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_statystyki, Color.WHITE);
                     break;
                 case R.id.nav_ustawienia:
                     replaceFragment(new SettingsFragment());
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_ustawienia, Color.WHITE);
+                    break;
+                case R.id.nav_blad:
+                    Toast.makeText(this, "Kliknięto zgłoś błąd!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_blad, Color.WHITE);
+                    break;
+                case R.id.nav_informacje:
+                    Toast.makeText(this, "Kliknięto informacje o aplikacji!", Toast.LENGTH_SHORT).show();
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_informacje, Color.WHITE);
                     break;
                 case R.id.nav_wyloguj:
+                    changeMenuItemColor(navigationView.getMenu(), R.id.nav_wyloguj, Color.WHITE);
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
@@ -145,7 +233,9 @@ public class StronaGlowna extends AppCompatActivity {
                     break;
 
             }
+
             drawerLayout.closeDrawer(GravityCompat.START);
+            navigationView.setCheckedItem(item.getItemId());
             return true;
         });
 
@@ -189,7 +279,42 @@ public class StronaGlowna extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void changeMenuItemColor(Menu menu, int menuItemId, int color) {
+        MenuItem menuItem = menu.findItem(menuItemId);
+        SpannableString spannable = new SpannableString(menuItem.getTitle());
+        spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(), 0);
+        menuItem.setTitle(spannable);
+    }
+
+
+    private void resetMenuItemColors(NavigationView navigationView) {
+        Menu menu = navigationView.getMenu();
+        // Iterujemy po każdym elemencie menu
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            if (menuItem.hasSubMenu()) {
+                SubMenu subMenu = menuItem.getSubMenu();
+                // Iterujemy po elementach submenu
+                for (int j = 0; j < subMenu.size(); j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    // Ustawiamy kolor tekstu na czarny
+                    SpannableString spannable = new SpannableString(subMenuItem.getTitle());
+                    spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
+                    subMenuItem.setTitle(spannable);
+                }
+            } else {
+                // Ustawiamy kolor tekstu na czarny dla pojedynczych elementów menu
+                SpannableString spannable = new SpannableString(menuItem.getTitle());
+                spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
+                menuItem.setTitle(spannable);
+            }
+        }
+    }
+
+
     private void showBottomDialog() {
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -199,8 +324,14 @@ public class StronaGlowna extends AppCompatActivity {
         LinearLayout przedmiotLayout = dialog.findViewById(R.id.layoutPrzedmiot);
         LinearLayout wydarzenieLayout = dialog.findViewById(R.id.layoutWydarzenie);
         LinearLayout kierunekLayout = dialog.findViewById(R.id.layoutKierunek);
-
+        LinearLayout dialogLayout = dialog.findViewById(R.id.dialog_layout);
         ImageView cancelButton = dialog.findViewById(R.id.cofnij_dodaj);
+
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            dialogLayout.setBackgroundResource(R.drawable.dialogbkg); // Dla motywu jasnego
+        } else {
+            dialogLayout.setBackgroundResource(R.drawable.dialogbkg_night); // Dla motywu ciemnego
+        }
 
         ocenaLayout.setOnClickListener(v -> {
             database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
@@ -473,6 +604,59 @@ public class StronaGlowna extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+
+        });
+        wydarzenieLayout.setOnClickListener(v -> {
+
+            dialog.dismiss();
+            Toast.makeText(StronaGlowna.this,"Kliknięto by dodać wydarzenie",Toast.LENGTH_SHORT).show();
+
+        });
+        kierunekLayout.setOnClickListener(v -> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
+            EditText addCourse = new EditText(StronaGlowna.this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            addCourse.setLayoutParams(lp);
+            login = intent.getStringExtra("login");
+            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
+            reference = database.getReference("users").child(login).child("courses");
+
+
+
+            builder.setView(addCourse);
+            builder
+                    .setMessage("Nazwa kierunku")
+                    .setCancelable(true)
+                    .setPositiveButton("OK", (dialog1, id) -> {
+                        String courseName = addCourse.getText().toString().trim();
+                        if (!courseName.isEmpty()) {
+                            Map<String,Object> values = new HashMap<>();
+                            values.put(courseName, courseName);
+                            reference.updateChildren(values);
+                            Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
+                            uzytkownik.getCourses().add(new Kierunek(courseName));
+                        } else {
+                            Toast.makeText(StronaGlowna.this, "Wprowadź nazwę kierunku!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        });
+
+
+
+        cancelButton.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
 }

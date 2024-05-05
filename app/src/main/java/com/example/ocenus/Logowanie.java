@@ -13,7 +13,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +52,7 @@ public class Logowanie extends AppCompatActivity {
         remember = findViewById(R.id.zapamietajmnie);
         showPasswordIcon = findViewById(R.id.showPasswordIcon);
 
+        updatePasswordVisibilityIcon();
         setLoginEditTextStyle();
         setEditTextStyle();
 
@@ -109,6 +109,8 @@ public class Logowanie extends AppCompatActivity {
 
     private void setLoginEditTextStyle() {
         EditText loginEditText = findViewById(R.id.login_login);
+        int personIconResId = isDarkThemeEnabled() ? R.drawable.baseline_person_24_night : R.drawable.baseline_person_24;
+        loginEditText.setCompoundDrawablesWithIntrinsicBounds(personIconResId, 0, 0, 0);
         if (isDarkThemeEnabled()) {
             loginEditText.setBackgroundResource(R.drawable.ocenus_ramka_noc);
             loginEditText.setTextColor(Color.WHITE);
@@ -120,6 +122,9 @@ public class Logowanie extends AppCompatActivity {
 
     private void setEditTextStyle() {
         EditText loginPassword = findViewById(R.id.login_password);
+        int personIconResId = isDarkThemeEnabled() ? R.drawable.baseline_lock_24_night : R.drawable.baseline_lock_24;
+        loginPassword.setCompoundDrawablesWithIntrinsicBounds(personIconResId, 0, 0, 0);
+
         if (isDarkThemeEnabled()) {
             loginPassword.setBackgroundResource(R.drawable.ocenus_ramka_noc);
             loginPassword.setTextColor(Color.WHITE);
@@ -131,19 +136,28 @@ public class Logowanie extends AppCompatActivity {
 
     private void togglePasswordVisibility() {
         if (passwordVisible) {
-            // If password is currently visible, hide it
             loginPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_24); // Change icon to show hidden password
         } else {
-            // If password is currently hidden, show it
             loginPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_off_24); // Change icon to show visible password
         }
-        passwordVisible = !passwordVisible; // Toggle the password visibility flag
-        loginPassword.setSelection(loginPassword.length()); // Set cursor position to the end of text
+        passwordVisible = !passwordVisible;
+        loginPassword.setSelection(loginPassword.length());
         loginPassword.setTypeface(ResourcesCompat.getFont(this, R.font.asap));
+        updatePasswordVisibilityIcon(); // Aktualizuj ikonę widoczności hasła
     }
-    public Boolean validateLogin() {
+
+    private void updatePasswordVisibilityIcon() {
+
+        boolean isDarkTheme = isDarkThemeEnabled();
+
+        if (passwordVisible) {
+            showPasswordIcon.setImageResource(isDarkTheme ? R.drawable.baseline_visibility_off_24_night : R.drawable.baseline_visibility_off_24);
+        } else {
+            showPasswordIcon.setImageResource(isDarkTheme ? R.drawable.baseline_visibility_24_night : R.drawable.baseline_visibility_24);
+        }
+    }
+
+        public Boolean validateLogin() {
         String val = loginLogin.getText().toString();
         if (val.isEmpty()) {
             loginLogin.setError("Pole login nie może być puste!");

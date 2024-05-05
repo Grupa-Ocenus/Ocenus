@@ -52,6 +52,7 @@ public class Rejestracja extends AppCompatActivity {
         showPasswordIcon = findViewById(R.id.showPasswordIcon);
         regulaminCheckBox = findViewById(R.id.regulaminBox);
 
+        updatePasswordVisibilityIcon();
         setLoginEditTextStyle();
         setEditTextStyle();
 
@@ -80,6 +81,16 @@ public class Rejestracja extends AppCompatActivity {
             }
             String login = signupLogin.getText().toString();
             String password = signupPassword.getText().toString();
+
+            if (login.length() > 40) {
+                Toast.makeText(Rejestracja.this, "Login nie może przekraczać 40 znaków!", Toast.LENGTH_SHORT).show();
+                return; // Przerwij proces rejestracji
+            }
+
+            if (password.length() < 6) {
+                Toast.makeText(Rejestracja.this, "Hasło musi mieć co najmniej 6 znaków!", Toast.LENGTH_SHORT).show();
+                return; // Przerwij proces rejestracji
+            }
 
             if (!login.isEmpty() && !password.isEmpty()) {
                 database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
@@ -120,6 +131,9 @@ public class Rejestracja extends AppCompatActivity {
 
     private void setLoginEditTextStyle() {
         EditText signupEditText = findViewById(R.id.signup_login);
+        int personIconResId = isDarkThemeEnabled() ? R.drawable.baseline_person_24_night : R.drawable.baseline_person_24;
+        signupEditText.setCompoundDrawablesWithIntrinsicBounds(personIconResId, 0, 0, 0);
+
         if (isDarkThemeEnabled()) {
             signupEditText.setBackgroundResource(R.drawable.ocenus_ramka_noc);
             signupEditText.setTextColor(Color.WHITE);
@@ -131,6 +145,9 @@ public class Rejestracja extends AppCompatActivity {
 
     private void setEditTextStyle() {
         EditText signupPassword = findViewById(R.id.signup_password);
+        int personIconResId = isDarkThemeEnabled() ? R.drawable.baseline_lock_24_night : R.drawable.baseline_lock_24;
+        signupPassword.setCompoundDrawablesWithIntrinsicBounds(personIconResId, 0, 0, 0);
+
         if (isDarkThemeEnabled()) {
             signupPassword.setBackgroundResource(R.drawable.ocenus_ramka_noc);
             signupPassword.setTextColor(Color.WHITE);
@@ -139,16 +156,6 @@ public class Rejestracja extends AppCompatActivity {
             signupPassword.setTextColor(Color.BLACK);
         }
     }
-
-    private void setLoginFrameStyle() {
-        ConstraintLayout mainLayout = findViewById(R.id.main);
-        if (isDarkThemeEnabled()) {
-            mainLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie_noc);
-        } else {
-            mainLayout.setBackgroundResource(R.drawable.tlo_ocenusowskie);
-        }
-    }
-
 
     private boolean isDarkThemeEnabled() {
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -161,16 +168,24 @@ public class Rejestracja extends AppCompatActivity {
 
     private void togglePasswordVisibility() {
         if (passwordVisible) {
-            // Jeśli hasło jest aktualnie widoczne, ukryj je
             signupPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_24); // Zmień ikonę, aby pokazać ukryte hasło
         } else {
-            // Jeśli hasło jest aktualnie ukryte, pokaż je
             signupPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            showPasswordIcon.setImageResource(R.drawable.baseline_visibility_off_24); // Zmień ikonę, aby pokazać widoczne hasło
         }
-        passwordVisible = !passwordVisible; // Przełącz flagę widoczności hasła
-        signupPassword.setSelection(signupPassword.length()); // Ustaw pozycję kursora na koniec tekstu
+        passwordVisible = !passwordVisible;
+        signupPassword.setSelection(signupPassword.length());
         signupPassword.setTypeface(ResourcesCompat.getFont(this, R.font.asap));
+        updatePasswordVisibilityIcon();
+    }
+
+    private void updatePasswordVisibilityIcon() {
+
+        boolean isDarkTheme = isDarkThemeEnabled();
+
+        if (passwordVisible) {
+            showPasswordIcon.setImageResource(isDarkTheme ? R.drawable.baseline_visibility_off_24_night : R.drawable.baseline_visibility_off_24);
+        } else {
+            showPasswordIcon.setImageResource(isDarkTheme ? R.drawable.baseline_visibility_24_night : R.drawable.baseline_visibility_24);
+        }
     }
 }

@@ -2,41 +2,86 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
+    tools:showIn = "navigation_view"
+    android:checkableBehavior="single">
 
-    <group
-        android:checkableBehavior="single">
+    <group>
 
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/baseline_home_24"
-            android:clickable="true"
-            android:title="@string/studia"/>
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/baseline_home_24"
+                android:checkable="true"
+                android:title="@string/strona_g_wna"
+                android:titleCondensed="Strona Główna"
+                />
 
-        <item
-            android:id="@+id/nav_ustawienia"
-            android:icon="@drawable/baseline_settings_24"
-            android:clickable="true"
-            android:title="@string/ustawienia"
-            />
-
-
-
+            <item
+                android:id="@+id/nav_profil"
+                android:icon="@drawable/baseline_person_24"
+                android:checkable="true"
+                android:title="@string/m_j_profil"
+                />
 
     </group>
-    <item
-        android:title="">
 
-        <menu>
-            <item
-                android:id="@+id/nav_wyloguj"
-                android:icon="@drawable/baseline_logout_24"
-                android:clickable="true"
-                android:title="@string/wyloguj"
+        <item
+            android:title="@string/dla_studenta">
 
-                />
-        </menu>
+            <menu>
 
-    </item>
+                <item
+                    android:id="@+id/nav_wydarzenia"
+                    android:icon="@drawable/baseline_event_24"
+                    android:checkable="true"
+                    android:title="@string/wydarzenia"
+                    />
+
+                <item
+                    android:id="@+id/nav_statystyki"
+                    android:icon="@drawable/baseline_leaderboard_24"
+                    android:checkable="true"
+                    android:title="@string/statystyki"
+                    />
+
+
+            </menu>
+
+        </item>
+
+
+        <item
+            android:title="@string/inne">
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_ustawienia"
+                    android:icon="@drawable/baseline_settings_24"
+                    android:checkable="true"
+                    android:title="@string/ustawienia"
+                    />
+
+                <item
+                    android:id="@+id/nav_blad"
+                    android:icon="@drawable/baseline_bug_report_24"
+                    android:checkable="true"
+                    android:title="@string/zg_o_b_d"
+                    />
+
+                <item
+                    android:id="@+id/nav_informacje"
+                    android:icon="@drawable/baseline_info_24"
+                    android:checkable="true"
+                    android:title="@string/o_aplikacji"
+                    />
+
+                <item
+                    android:id="@+id/nav_wyloguj"
+                    android:icon="@drawable/baseline_logout_24"
+                    android:checkable="true"
+                    android:title="@string/wyloguj"
+                    />
+            </menu>
+        </item>
 
 </menu>
