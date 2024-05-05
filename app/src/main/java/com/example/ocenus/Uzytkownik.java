@@ -8,6 +8,7 @@ public class Uzytkownik {
     private String login, password;
     private DaneUzytkownika dane;
     private List<Kierunek> courses;
+    private List<Ocena> grades;
 
     private String imageURL;
 
@@ -30,6 +31,7 @@ public class Uzytkownik {
         this.password = password;
         this.dane = dane;
         this.courses = new ArrayList<>();
+        this.grades = new ArrayList<>();
     }
 
     public DaneUzytkownika getDane() {
@@ -58,6 +60,10 @@ public class Uzytkownik {
 
     public List<Kierunek> getCourses() {
         return courses;
+    }
+
+    public List<Ocena> getGrades() {
+        return grades;
     }
 
 }

@@ -2,13 +2,17 @@ package com.example.ocenus;
 
 public class Ocena {
     private String courseName;
+    private String subjectName;
     private String name;
     private Integer grade;
+    private RodzajOceny gradeType;
 
-    public Ocena(String courseName, String name, Integer grade) {
+    public Ocena(String courseName,String subjectName, String name, Integer grade, RodzajOceny gradeType) {
         this.courseName = courseName;
+        this.subjectName = subjectName;
         this.name = name;
         this.grade = grade;
+        this.gradeType = gradeType;
     }
 
     public Integer getGrade() {
@@ -33,5 +37,13 @@ public class Ocena {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 }

@@ -5,9 +5,12 @@ import java.util.List;
 
 public class Kierunek {
     private String courseName;
+    private Integer semester;
     private List<Przedmiot> subjects;
-    public Kierunek(String courseName) {
+
+    public Kierunek(String courseName, Integer semester) {
         this.courseName = courseName;
+        this.semester = semester;
         this.subjects = new ArrayList<>();
     }
 
@@ -27,6 +30,11 @@ public class Kierunek {
         this.subjects = subjects;
     }
 
+    public Integer getSemester() {
+        return semester;
+    }
 
-
+    public void setSemester(Integer semester) {
+        this.semester = semester;
+    }
 }

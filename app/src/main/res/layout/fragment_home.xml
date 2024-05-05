@@ -6,12 +6,19 @@
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="StronaGlowna"
-        android:gravity="center"
-        android:textSize="30sp"
-        />
+    <ListView
+        android:id="@+id/simpleListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#f00"
+        android:dividerHeight="1dp"
+        android:listSelector="#0f0"/>
 
+    <ListView
+        android:id="@+id/gradesListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#f00"
+        android:dividerHeight="1dp"
+        android:listSelector="#0f0"/>
 </FrameLayout>

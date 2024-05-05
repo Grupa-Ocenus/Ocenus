@@ -7,12 +7,15 @@ public class Przedmiot {
     private String courseName;
     private String subjectName;
     private Integer ECTS;
+    private Integer semester;
+
     private List<Ocena> grades;
 
-    public Przedmiot(String courseName, String subjectName, Integer ECTS) {
+    public Przedmiot(String courseName, String subjectName, Integer ECTS, Integer semester) {
         this.courseName = courseName;
         this.subjectName = subjectName;
         this.ECTS = ECTS;
+        this.semester = semester;
         this.grades = new ArrayList<>();
     }
 
@@ -46,5 +49,13 @@ public class Przedmiot {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public Integer getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Integer semester) {
+        this.semester = semester;
     }
 }

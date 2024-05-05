@@ -13,10 +13,12 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,32 +67,42 @@ public class StronaGlowna extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+
         intent = getIntent();
         login = intent.getStringExtra("login");
 
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
+
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.getChildrenCount() !=0){
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        Kierunek course = new Kierunek(dataSnapshot.getKey());
+                        Kierunek course = new Kierunek(dataSnapshot.getKey(),5);
                         for(DataSnapshot dataSnapshotLevel2: dataSnapshot.child("subjects").getChildren()){
-
-                            course.getSubjects().add(new Przedmiot(course.getCourseName(), dataSnapshotLevel2.getKey(),Integer.valueOf(dataSnapshotLevel2.child("ects").getValue(String.class))));
+                            Przedmiot subject = new Przedmiot(course.getCourseName(), dataSnapshotLevel2.getKey(),Integer.valueOf(dataSnapshotLevel2.child("ects").getValue(String.class)),5);
+                            for(DataSnapshot dataSnapshotLevel3: dataSnapshotLevel2.child("grades").getChildren()){
+                                Ocena grade = new Ocena(course.getCourseName(), "uwu", dataSnapshotLevel3.getKey(),Integer.valueOf(dataSnapshotLevel3.child("grade").getValue(String.class)), RodzajOceny.WYKLAD);
+                                subject.getGrades().add(grade);
+                                uzytkownik.getGrades().add(grade);
+                            }
+                            course.getSubjects().add(subject);
                         }
                         uzytkownik.getCourses().add(course);
+
                     }
                 }
+                replaceFragment(new HomeFragment(uzytkownik));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        }
+        );
 
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -107,16 +119,17 @@ public class StronaGlowna extends AppCompatActivity {
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(uzytkownik)).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(uzytkownik));
+
 
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(new HomeFragment(uzytkownik));
                     break;
                 case R.id.nav_ustawienia:
                     replaceFragment(new SettingsFragment());
@@ -141,7 +154,7 @@ public class StronaGlowna extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.StronaGlowna:
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(new HomeFragment(uzytkownik));
                     break;
                 case R.id.Statystyki:
                     replaceFragment(new StatystykiFragment());
@@ -190,7 +203,6 @@ public class StronaGlowna extends AppCompatActivity {
         ImageView cancelButton = dialog.findViewById(R.id.cofnij_dodaj);
 
         ocenaLayout.setOnClickListener(v -> {
-
             database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
             reference = database.getReference("users").child(login).child("courses");
 
@@ -246,7 +258,7 @@ public class StronaGlowna extends AppCompatActivity {
                         Toast.makeText(StronaGlowna.this,"Dodano ocenę!",Toast.LENGTH_SHORT).show();
 
 
-                        Ocena grade = new Ocena(subjectFound.getCourseName(), (String.valueOf(addGrade.getText())),Integer.valueOf(String.valueOf(addGrade2.getText())));
+                        Ocena grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())),Integer.valueOf(String.valueOf(addGrade2.getText())),RodzajOceny.WYKLAD);
                         Kierunek courseFound = uzytkownik.getCourses()
                                 .stream()
                                 .filter(courseParam -> Objects.equals(subjectFound.getCourseName(), courseParam.getCourseName()))
@@ -263,62 +275,12 @@ public class StronaGlowna extends AppCompatActivity {
                     });
             AlertDialog alert = builder.create();
             alert.show();
-
+            replaceFragment(new HomeFragment(uzytkownik));
         });
 
         przedmiotLayout.setOnClickListener(v -> {
-
-            login = intent.getStringExtra("login");
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
-            DatabaseReference reference = database.getReference("users").child(login).child("courses");
-            String[] s = new String[uzytkownik.getCourses().size()];
-            int counter = 0;
-            for (Kierunek kierunek : uzytkownik.getCourses()) {
-                s[counter] = kierunek.getCourseName();
-                counter++;
-            }
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
-            final ArrayAdapter<String> adp = new ArrayAdapter<>(StronaGlowna.this,
-                    android.R.layout.simple_spinner_item, s);
-
-            final Spinner sp = new Spinner(StronaGlowna.this);
-            sp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            sp.setAdapter(adp);
-
-            EditText addCourse = new EditText(StronaGlowna.this);
-            EditText addCourse2 = new EditText(StronaGlowna.this);
-            LinearLayout layout = new LinearLayout(builder.getContext());
-            layout.setOrientation(LinearLayout.VERTICAL);
-            layout.addView(addCourse);
-            addCourse.setHint("Nazwa przedmiotu");
-            layout.addView(addCourse2);
-            addCourse2.setHint("ECTS");
-            addCourse2.setInputType(InputType.TYPE_CLASS_NUMBER);
-            layout.addView(sp);
-
-            builder.setView(layout);
-            builder
-                    .setCancelable(true)
-                    .setPositiveButton("OK", (dialog1, id) -> {
-                        String course = sp.getSelectedItem().toString();
-                        Map<String,Object> values = new HashMap<>();
-//                        values.put("name",String.valueOf(addCourse.getText()));
-                        values.put("ects",String.valueOf(addCourse2.getText()));
-                        reference.child(course).child("subjects").child(String.valueOf(addCourse.getText())).updateChildren(values);
-                        Toast.makeText(StronaGlowna.this,"Dodano przedmiot!",Toast.LENGTH_SHORT).show();
-                        Przedmiot subject = new Przedmiot(course, (String.valueOf(addCourse.getText())),Integer.valueOf(String.valueOf(addCourse2.getText())));
-                        Kierunek courseFound = uzytkownik.getCourses()
-                                .stream()
-                                .filter(courseParam -> course.equals(courseParam.getCourseName()))
-                                .collect(Collectors.toList()).stream().findFirst().get();
-                        int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
-                        uzytkownik.getCourses().get(courseIndex).getSubjects().add(subject);
-
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-
+            addSubjectShowDialog(dialog);
+            replaceFragment(new HomeFragment(uzytkownik));
         });
         wydarzenieLayout.setOnClickListener(v -> {
 
@@ -327,34 +289,8 @@ public class StronaGlowna extends AppCompatActivity {
 
         });
         kierunekLayout.setOnClickListener(v -> {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
-            EditText addCourse = new EditText(StronaGlowna.this);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-            addCourse.setLayoutParams(lp);
-            login = intent.getStringExtra("login");
-            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
-            reference = database.getReference("users").child(login).child("courses");
-
-
-
-            builder.setView(addCourse);
-            builder
-                    .setMessage("Nazwa kierunku")
-                    .setCancelable(true)
-                    .setPositiveButton("OK", (dialog1, id) -> {
-                        Map<String,Object> values = new HashMap<>();
-                        values.put(String.valueOf(addCourse.getText()),String.valueOf(addCourse.getText()));
-                        reference.updateChildren(values);
-                        Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
-                        uzytkownik.getCourses().add(new Kierunek(String.valueOf(addCourse.getText())));
-                    });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
+            addCourseShowDialog(dialog);
+            replaceFragment(new HomeFragment(uzytkownik));
         });
 
 
@@ -366,6 +302,177 @@ public class StronaGlowna extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+
+    private void addCourseShowDialog(Dialog dialog){
+        login = intent.getStringExtra("login");
+        database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
+        reference = database.getReference("users").child(login).child("courses");
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
+
+        EditText addCourse = new EditText(StronaGlowna.this);
+        EditText addSemester = new EditText(StronaGlowna.this);
+
+        LinearLayout layout = new LinearLayout(builder.getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.addView(addCourse);
+        addCourse.setHint("Nazwa");
+        layout.addView(addSemester);
+        addSemester.setHint("Aktualny semestr");
+        addSemester.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        builder.setView(layout);
+        builder
+                .setMessage("Nazwa kierunku")
+                .setCancelable(true)
+                .setPositiveButton("OK", (dialog1, id) -> {
+                    Map<String,Object> values = new HashMap<>();
+                    values.put("Current semester",String.valueOf(addSemester.getText()));
+                    reference.child(String.valueOf(addCourse.getText())).updateChildren(values);
+                    Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
+                    uzytkownik.getCourses().add(new Kierunek(String.valueOf(addCourse.getText()), Integer.valueOf(String.valueOf(addSemester.getText()))));
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+    }
+
+    private Spinner createCoursesSpinner(Dialog dialog){
+        String[] s = new String[uzytkownik.getCourses().size()];
+
+        int counter = 0;
+        for (Kierunek kierunek : uzytkownik.getCourses()) {
+            s[counter] = kierunek.getCourseName();
+            counter++;
+        }
+
+
+        final ArrayAdapter<String> adp = new ArrayAdapter<>(StronaGlowna.this,
+                android.R.layout.simple_spinner_item, s);
+
+        final Spinner sp = new Spinner(StronaGlowna.this);
+        sp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        sp.setAdapter(adp);
+        return sp;
+    }
+    private void addSubjectShowDialog(Dialog dialog){
+
+        login = intent.getStringExtra("login");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
+        DatabaseReference reference = database.getReference("users").child(login).child("courses");
+        AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
+
+        Spinner sp = createCoursesSpinner(dialog);
+        TextView coursesListLabel = new TextView(StronaGlowna.this);
+        TextView lectureLabel = new TextView(StronaGlowna.this);
+        TextView classesLabel =  new TextView(StronaGlowna.this);
+        EditText addCourseName = new EditText(StronaGlowna.this);
+        EditText addCourseEcts = new EditText(StronaGlowna.this);
+        EditText addCourseSemester = new EditText(StronaGlowna.this);
+        CheckBox lectureCheck = new CheckBox(StronaGlowna.this);
+        CheckBox classesCheck = new CheckBox(StronaGlowna.this);
+        EditText lectureWeight = new EditText(StronaGlowna.this);
+        EditText classesWeight = new EditText(StronaGlowna.this);
+
+        LinearLayout layout = new LinearLayout(builder.getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.addView(addCourseName);
+        addCourseName.setHint("Nazwa przedmiotu");
+        layout.addView(addCourseEcts);
+        addCourseEcts.setHint("ECTS");
+        addCourseEcts.setInputType(InputType.TYPE_CLASS_NUMBER);
+        layout.addView(addCourseSemester);
+        addCourseSemester.setHint("Semestr");
+        addCourseSemester.setInputType(InputType.TYPE_CLASS_NUMBER);
+        layout.addView(coursesListLabel);
+        coursesListLabel.setText("\n Lista przedmiotów\n");
+        layout.addView(sp);
+        classesLabel.setText("\n Zajęcia\n");
+        layout.addView(classesLabel);
+        layout.addView(classesCheck);
+        classesCheck.setChecked(true);
+        layout.addView(classesWeight);
+        classesWeight.setEnabled(false);
+        classesWeight.setHint("Waga (%)");
+        classesWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
+        layout.addView(lectureLabel);
+        lectureLabel.setText("\n Wykład\n");
+        layout.addView(lectureCheck);
+        layout.addView(lectureWeight);
+        lectureWeight.setEnabled(false);
+        lectureWeight.setHint("Waga (%)");
+        lectureWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        lectureCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
+        {
+            if(isChecked){
+                lectureWeight.setEnabled(true);
+                lectureWeight.setHintTextColor(Color.WHITE);
+            }
+            else{
+                lectureWeight.setEnabled(false);
+                lectureWeight.setHintTextColor(Color.GRAY);
+            }
+        }
+        );
+
+        classesCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
+                {
+                    if(isChecked){
+                        classesWeight.setEnabled(true);
+                        classesWeight.setHintTextColor(Color.WHITE);
+                    }
+                    else{
+                        classesWeight.setEnabled(false);
+                        classesWeight.setHintTextColor(Color.GRAY);
+                    }
+                }
+        );
+
+
+        builder.setView(layout);
+        builder
+                .setCancelable(true)
+                .setPositiveButton("OK", (dialog1, id) -> {
+
+                    String course = sp.getSelectedItem().toString();
+
+                    Map<String,Object> values = new HashMap<>();
+                    values.put("ects",String.valueOf(addCourseEcts.getText()));
+                    values.put("semester", String.valueOf(addCourseSemester.getText()));
+                    reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).updateChildren(values);
+                    values = new HashMap<>();
+                    if(lectureCheck.isChecked() && classesCheck.isChecked()){
+                        values.put("lecture",String.valueOf(lectureWeight.getText()));
+                        values.put("classes", String.valueOf(classesWeight.getText()));
+                    }
+                    else if (lectureCheck.isChecked()){
+                        values.put("lecture",String.valueOf(100));
+                    }
+                    else {
+                        values.put("classes",String.valueOf(100));
+                    }
+                    reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).child("weights").updateChildren(values);
+
+                    Toast.makeText(StronaGlowna.this,"Dodano przedmiot!",Toast.LENGTH_SHORT).show();
+                    Przedmiot subject = new Przedmiot(course, (String.valueOf(addCourseName.getText())),Integer.valueOf(String.valueOf(addCourseEcts.getText())),Integer.valueOf(String.valueOf(addCourseSemester.getText())));
+                    Kierunek courseFound = uzytkownik.getCourses()
+                            .stream()
+                            .filter(courseParam -> course.equals(courseParam.getCourseName()))
+                            .collect(Collectors.toList()).stream().findFirst().get();
+                    int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
+                    uzytkownik.getCourses().get(courseIndex).getSubjects().add(subject);
+
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
 
     }
 }
