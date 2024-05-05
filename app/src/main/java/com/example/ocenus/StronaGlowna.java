@@ -434,6 +434,14 @@ public class StronaGlowna extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+        cancelButton.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 
     private void addCourseShowDialog(Dialog dialog){
@@ -605,59 +613,14 @@ public class StronaGlowna extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
 
-        });
-        wydarzenieLayout.setOnClickListener(v -> {
-
-            dialog.dismiss();
-            Toast.makeText(StronaGlowna.this,"Kliknięto by dodać wydarzenie",Toast.LENGTH_SHORT).show();
-
-        });
-        kierunekLayout.setOnClickListener(v -> {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
-            EditText addCourse = new EditText(StronaGlowna.this);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-            addCourse.setLayoutParams(lp);
-            login = intent.getStringExtra("login");
-            database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
-            reference = database.getReference("users").child(login).child("courses");
+        };
 
 
 
-            builder.setView(addCourse);
-            builder
-                    .setMessage("Nazwa kierunku")
-                    .setCancelable(true)
-                    .setPositiveButton("OK", (dialog1, id) -> {
-                        String courseName = addCourse.getText().toString().trim();
-                        if (!courseName.isEmpty()) {
-                            Map<String,Object> values = new HashMap<>();
-                            values.put(courseName, courseName);
-                            reference.updateChildren(values);
-                            Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
-                            uzytkownik.getCourses().add(new Kierunek(courseName));
-                        } else {
-                            Toast.makeText(StronaGlowna.this, "Wprowadź nazwę kierunku!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
-        });
 
 
 
-        cancelButton.setOnClickListener(view -> dialog.dismiss());
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
-}
+
 
