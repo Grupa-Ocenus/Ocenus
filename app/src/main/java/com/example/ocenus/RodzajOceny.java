@@ -1,6 +1,6 @@
 package com.example.ocenus;
 
 public enum RodzajOceny {
-    ZAJECIA,
-    WYKLAD
+    classes,
+    lecture
 }

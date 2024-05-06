@@ -1,7 +1,9 @@
 package com.example.ocenus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Przedmiot {
     private String courseName;
@@ -11,12 +13,24 @@ public class Przedmiot {
 
     private List<Ocena> grades;
 
+    public Map<RodzajOceny, Integer> getWeights() {
+        return weights;
+    }
+
+    public void setWeights(Map<RodzajOceny, Integer> weights) {
+        this.weights = weights;
+    }
+
+    private Map<RodzajOceny,Integer> weights;
+
+
     public Przedmiot(String courseName, String subjectName, Integer ECTS, Integer semester) {
         this.courseName = courseName;
         this.subjectName = subjectName;
         this.ECTS = ECTS;
         this.semester = semester;
         this.grades = new ArrayList<>();
+        this.weights = new HashMap<>();
     }
 
     public String getSubjectName() {
