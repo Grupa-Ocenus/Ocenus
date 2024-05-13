@@ -4,22 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="?attr/android:background"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    tools:ignore="ExtraText">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ListView
-        android:id="@+id/simpleListView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="#f00"
-        android:dividerHeight="1dp"
-        android:listSelector="#0f0"/>
+    <!-- GridView for subject tiles -->
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:padding="16dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" />
+
 
     <ListView
         android:id="@+id/gradesListView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:divider="#f00"
         android:dividerHeight="1dp"
-        android:listSelector="#0f0"/>
+        android:listSelector="#0f0" />
+
 </FrameLayout>
