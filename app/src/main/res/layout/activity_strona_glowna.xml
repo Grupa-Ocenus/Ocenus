@@ -12,6 +12,8 @@
     tools:context=".StronaGlowna"
     >
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,18 +31,20 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar" />
+            android:layout_below="@id/toolbar"
+            android:layout_marginBottom="80dp" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true">
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/white"
+                android:background="@color/transparent"
                 app:fabCradleMargin="10dp"
                 app:fabCradleRoundedCornerRadius="50dp">
 
@@ -49,12 +53,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:background="@android:color/transparent"
+                    android:background="@color/white"
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/bottom_menu" />
 
 
+
             </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <View
+                android:id="@+id/empty_bottom_space"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
+                app:layout_anchor="@id/bottomAppBar"
+                app:layout_anchorGravity="top" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -82,5 +97,7 @@
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:menu="@menu/nav_menu" />
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -203,7 +204,7 @@ public class StronaGlowna extends AppCompatActivity {
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.WHITE);
                     break;
                 case R.id.nav_profil:
-                    Toast.makeText(this, "Kliknięto mój profil!", Toast.LENGTH_SHORT).show();
+                    replaceFragment(new ProfilFragment());
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_profil, Color.WHITE);
                     break;
                 case R.id.nav_wydarzenia:
@@ -277,11 +278,42 @@ public class StronaGlowna extends AppCompatActivity {
         }
     }
 
-    private  void replaceFragment(Fragment fragment) {
+    private void toggleBottomNavigationView(boolean isVisible) {
+        if (isVisible) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        } else {
+            bottomNavigationView.setVisibility(View.GONE);
+        }
+    }
+
+    private void toggleFloatingActionButton(boolean isVisible) {
+        if (isVisible) {
+            fab.setVisibility(View.VISIBLE);
+        } else {
+            fab.setVisibility(View.GONE);
+        }
+    }
+
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+
+        // Sprawdzanie, czy fragment jest ProfilFragment i ustawienie widoczności paska nawigacyjnego i FAB na tej podstawie
+        if (fragment instanceof ProfilFragment) {
+            toggleBottomNavigationView(false);
+            toggleFloatingActionButton(false);
+            // Zastąp pasek dolny pustym widokiem
+            bottomNavigationView.setVisibility(View.GONE);
+            findViewById(R.id.empty_bottom_space).setVisibility(View.VISIBLE);
+        } else {
+            toggleBottomNavigationView(true);
+            toggleFloatingActionButton(true);
+            // Przywróć normalny widok paska dolnego
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_bottom_space).setVisibility(View.GONE);
+        }
     }
 
     private void changeMenuItemColor(Menu menu, int menuItemId, int color) {
@@ -315,7 +347,6 @@ public class StronaGlowna extends AppCompatActivity {
             }
         }
     }
-
 
     private void showBottomDialog() {
 

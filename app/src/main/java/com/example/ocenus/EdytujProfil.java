@@ -77,8 +77,8 @@ public class EdytujProfil extends AppCompatActivity {
             getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
         }
 
-        login = intent.getStringExtra("login");
 
+        login = intent.getStringExtra("login");
         DatabaseReference reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users");
         Query checkUserDatabase = reference.orderByChild("login").equalTo(login);
 
@@ -145,6 +145,7 @@ public class EdytujProfil extends AppCompatActivity {
     private void saveChanges(){
         String userName = imieEdit.getText().toString().trim();
         String userSurname = nazwiskoEdit.getText().toString().trim();
+        login = intent.getStringExtra("login");
         String userLogin = login;
 
         database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");

@@ -12,6 +12,8 @@
     <color name="grey_hint">#ACACAC</color>
     <color name="motyw_noc">#242424</color>
     <color name="dialogbkg">#FFFFFF</color>
-
+    <color name="transparent">#00000000</color>
+    <color name="ProfileGrey">#C6C6C6</color>color>
+    <color name="AddGrey">#636464</color>color>
 
 </resources>

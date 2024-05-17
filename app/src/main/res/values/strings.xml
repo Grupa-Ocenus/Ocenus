@@ -90,6 +90,9 @@
     <string name="o_aplikacji">O aplikacji</string>
     <string name="nazwisko">Nazwisko</string>
     <string name="nazwisk">Nazwisko</string>
+    <string name="zresetuj_has_o">Zresetuj hasło</string>
+    <string name="has_o5">Hasło</string>
+    <string name="zmie_has_o">Zmień hasło</string>
 
 
 </resources>
