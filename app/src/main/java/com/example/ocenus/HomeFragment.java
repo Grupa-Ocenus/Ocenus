@@ -45,21 +45,58 @@ public class HomeFragment extends Fragment {
             }
         }
 
+
+
         // Set up the GridView with subject names
+//        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+//                R.layout.grid_item_layout, R.id.textView, subjectNames) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getView(position, convertView, parent);
+//                TextView textView = view.findViewById(R.id.textView);
+//                String subjectName = subjectNames.get(position);
+//                if (subjectName.length() > 13) {
+//                    subjectName = subjectName.substring(0, 10) + "...";
+//                }
+//                textView.setText(subjectName);
+//                return view;
+//            }
+//
+//        };
+
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 R.layout.grid_item_layout, R.id.textView, subjectNames) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = view.findViewById(R.id.textView);
+                TextView textViewOcena = view.findViewById(R.id.textViewOcena);
+
                 String subjectName = subjectNames.get(position);
                 if (subjectName.length() > 13) {
                     subjectName = subjectName.substring(0, 10) + "...";
                 }
                 textView.setText(subjectName);
+
+                // Find the corresponding subject and calculate its weighted average
+                Przedmiot subject = null;
+                outerLoop:
+                for (Kierunek kierunek : uzytkownik.getCourses()) {
+                    for (Przedmiot przedmiot : kierunek.getSubjects()) {
+                        if (przedmiot.getSubjectName().equals(subjectNames.get(position))) {
+                            subject = przedmiot;
+                            break outerLoop;
+                        }
+                    }
+                }
+
+                if (subject != null) {
+                    double average = calculateWeightedAverage(subject);
+                    textViewOcena.setText(String.format("%.2f", average));
+                }
+
                 return view;
             }
-
         };
         coursesGridView = view.findViewById(R.id.gridView); // Use your grid view ID
         coursesGridView.setAdapter(adapter);
@@ -90,5 +127,17 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private double calculateWeightedAverage(Przedmiot przedmiot) {
+        double totalWeight = 0;
+        double weightedSum = 0;
+        for (Ocena ocena : przedmiot.getGrades()) {
+            double grade = ocena.getGrade();
+            double weight = przedmiot.getECTS(); // Assuming each subject has an ECTS weight
+            weightedSum += grade * weight;
+            totalWeight += weight;
+        }
+        return totalWeight == 0 ? 0 : weightedSum / totalWeight;
     }
 }

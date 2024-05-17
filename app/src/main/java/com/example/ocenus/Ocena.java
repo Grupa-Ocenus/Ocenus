@@ -6,6 +6,7 @@ public class Ocena {
     private String name;
     private Integer grade;
     private RodzajOceny gradeType;
+    private Integer ECTS;
 
     public Ocena(String courseName,String subjectName, String name, Integer grade, RodzajOceny gradeType) {
         this.courseName = courseName;
@@ -13,8 +14,10 @@ public class Ocena {
         this.name = name;
         this.grade = grade;
         this.gradeType = gradeType;
+       // this.ECTS = ECTS;
     }
 
+    public Integer getECTS(){return ECTS; }
     public Integer getGrade() {
         return grade;
     }

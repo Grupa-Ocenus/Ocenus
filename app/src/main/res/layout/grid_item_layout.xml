@@ -24,12 +24,23 @@
             android:textSize="20sp"
             />
 
+<!--        <TextView-->
+<!--            android:id="@+id/textViewOcena"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="124dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="3,5"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="60sp"-->
+<!--            android:paddingTop="16dp"-->
+<!--            android:paddingBottom="16dp"-->
+<!--            />-->
+
         <TextView
             android:id="@+id/textViewOcena"
             android:layout_width="match_parent"
             android:layout_height="124dp"
             android:gravity="center"
-            android:text="3,5"
             android:textColor="@color/white"
             android:textSize="60sp"
             android:paddingTop="16dp"
