@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class HomeFragment extends Fragment {
     private Uzytkownik uzytkownik;
     private GridView coursesGridView; // Changed from ListView
     private ListView gradesListView;
+
+    private OnBackPressedCallback callback;
 
     public HomeFragment() {
         // Default constructor
@@ -140,4 +143,28 @@ public class HomeFragment extends Fragment {
         }
         return totalWeight == 0 ? 0 : weightedSum / totalWeight;
     }
-}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (gradesListView != null && gradesListView.getVisibility() == View.VISIBLE) {
+                    gradesListView.setVisibility(View.INVISIBLE);
+                    coursesGridView.setVisibility(View.VISIBLE);
+                } else {
+                    requireActivity().onBackPressed();
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (callback != null) {
+            callback.remove();
+        }
+}}
