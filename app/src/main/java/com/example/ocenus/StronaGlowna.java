@@ -220,11 +220,11 @@ public class StronaGlowna extends AppCompatActivity {
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_ustawienia, Color.WHITE);
                     break;
                 case R.id.nav_blad:
-                    Toast.makeText(this, "Kliknięto zgłoś błąd!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Kliknięto zglos blad!", Toast.LENGTH_SHORT).show();
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_blad, Color.WHITE);
                     break;
                 case R.id.nav_informacje:
-                    Toast.makeText(this, "Kliknięto informacje o aplikacji!", Toast.LENGTH_SHORT).show();
+                    InformacjeFragment.showAboutDialog(StronaGlowna.this);
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_informacje, Color.WHITE);
                     break;
                 case R.id.nav_wyloguj:

@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/imie4"
+                android:fontFamily="@font/asap"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -96,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/imie1"
+                android:fontFamily="@font/asap"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp" />
@@ -122,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/nazwisko5"
+                android:fontFamily="@font/asap"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -132,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/nazwisko3"
+                android:fontFamily="@font/asap"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp" />
@@ -158,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/login5"
+                android:fontFamily="@font/asap"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -168,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/login4"
+                android:fontFamily="@font/asap"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/ocenusowski"
                 android:textSize="18sp" />

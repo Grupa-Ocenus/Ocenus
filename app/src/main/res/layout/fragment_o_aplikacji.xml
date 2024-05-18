@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    tools:context=".InformacjeFragment">
+
+    <TextView
+        android:id="@+id/description1"
+        android:layout_width="366dp"
+        android:layout_height="261dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:lineSpacingExtra="10dp"
+        android:text="Ocenus to aplikacja do liczenia średniej ocen i monitorowania postępów w nauce. Stworzona przez grupę trzech studentów, aplikacja ma na celu ułatwienie organizacji i poprawę wyników edukacyjnych. Dzięki Ocenus możesz śledzić swoje oceny, analizować postępy oraz motywować się do dalszej nauki. Nasz zespół dokłada wszelkich starań, aby aplikacja była intuicyjna i pomocna dla każdego studenta."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:fontFamily="@font/asap"/>
+
+
+</RelativeLayout>
