@@ -455,47 +455,55 @@ public class StronaGlowna extends AppCompatActivity {
                         } catch (Exception e) {
                             gradeNumeric = 2.0F;
                         }
+
                         String subject = sp.getSelectedItem().toString();
                         Map<String, Object> values = new HashMap<>();
-//                        values.put("name",String.valueOf(addGrade.getText()));
-                        values.put("grade", String.valueOf(gradeNumeric));
-                        if (lectureCheck.isChecked()) {
-                            values.put("Type", RodzajOceny.lecture);
+                        if (String.valueOf(addGrade.getText()).isEmpty() || String.valueOf(addGrade.getText()).trim().isEmpty()) {
+                            dialog.dismiss();
+                            Toast.makeText(StronaGlowna.this, "Czynność nie może być pusta", Toast.LENGTH_SHORT).show();
                         }
-                        if (classesCheck.isChecked()) {
-                            values.put("Type", RodzajOceny.classes);
-                        }
-                        List<Przedmiot> subjects = new ArrayList<>();
-                        for (Kierunek course : uzytkownik.getCourses()) {
-                            subjects.addAll(course.getSubjects());
-                        }
-                        Przedmiot subjectFound = subjects.stream().filter(subjectParam ->
-                                Objects.equals(subject, subjectParam.getSubjectName())).findFirst().get();
-                        reference.child(subjectFound.getCourseName()).child("subjects").child(subject).child("grades").child(String.valueOf(addGrade.getText())).updateChildren(values);
-                        Toast.makeText(StronaGlowna.this, "Dodano ocenę!", Toast.LENGTH_SHORT).show();
+                        else {
+                            values.put("grade", String.valueOf(gradeNumeric));
+                            if (lectureCheck.isChecked()) {
+                                values.put("Type", RodzajOceny.lecture);
+                            }
+                            if (classesCheck.isChecked()) {
+                                values.put("Type", RodzajOceny.classes);
+                            }
+                            List<Przedmiot> subjects = new ArrayList<>();
+                            for (Kierunek course : uzytkownik.getCourses()) {
+                                subjects.addAll(course.getSubjects());
+                            }
+                            Przedmiot subjectFound = subjects.stream().filter(subjectParam ->
+                                    Objects.equals(subject, subjectParam.getSubjectName())).findFirst().get();
+                            reference.child(subjectFound.getCourseName()).child("subjects").child(subject).child("grades").child(String.valueOf(addGrade.getText())).updateChildren(values);
+                            Toast.makeText(StronaGlowna.this, "Dodano ocenę!", Toast.LENGTH_SHORT).show();
 
-                        Ocena grade = null;
+                            Ocena grade = null;
 
-                        if (lectureCheck.isChecked()) {
-                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.lecture);
-                        }
-                        if (classesCheck.isChecked()) {
-                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.classes);
-                        }
+                            if (lectureCheck.isChecked()) {
+                                grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.lecture);
+                            }
+                            if (classesCheck.isChecked()) {
+                                grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.classes);
+                            }
 
-                        Kierunek courseFound = uzytkownik.getCourses()
-                                .stream()
-                                .filter(courseParam -> Objects.equals(subjectFound.getCourseName(), courseParam.getCourseName()))
-                                .collect(Collectors.toList()).stream().findFirst().get();
-                        int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
-                        Przedmiot subjectToAppend = courseFound.getSubjects()
-                                .stream()
-                                .filter(subjectParam -> Objects.equals(subjectFound.getSubjectName(), subjectParam.getSubjectName()))
-                                .collect(Collectors.toList()).stream().findFirst().get();
-                        int subjectIndex = uzytkownik.getCourses().get(courseIndex).getSubjects().indexOf(subjectToAppend);
+                            Kierunek courseFound = uzytkownik.getCourses()
+                                    .stream()
+                                    .filter(courseParam -> Objects.equals(subjectFound.getCourseName(), courseParam.getCourseName()))
+                                    .collect(Collectors.toList()).stream().findFirst().get();
+                            int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
+                            Przedmiot subjectToAppend = courseFound.getSubjects()
+                                    .stream()
+                                    .filter(subjectParam -> Objects.equals(subjectFound.getSubjectName(), subjectParam.getSubjectName()))
+                                    .collect(Collectors.toList()).stream().findFirst().get();
+                            int subjectIndex = uzytkownik.getCourses().get(courseIndex).getSubjects().indexOf(subjectToAppend);
 
-                        uzytkownik.getCourses().get(courseIndex).getSubjects().get(subjectIndex).getGrades().add(grade);
-                        uzytkownik.getGrades().add(grade);
+                            uzytkownik.getCourses().get(courseIndex).getSubjects().get(subjectIndex).getGrades().add(grade);
+                            uzytkownik.getGrades().add(grade);
+
+//                        values.put("name",String.valueOf(addGrade.getText()))
+                        };
 
                     });
             AlertDialog alert = builder.create();
