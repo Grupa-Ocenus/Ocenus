@@ -4,11 +4,11 @@ public class Ocena {
     private String courseName;
     private String subjectName;
     private String name;
-    private Integer grade;
+    private Float grade;
     private RodzajOceny gradeType;
     private Integer ECTS;
 
-    public Ocena(String courseName,String subjectName, String name, Integer grade, RodzajOceny gradeType) {
+    public Ocena(String courseName,String subjectName, String name, Float grade, RodzajOceny gradeType) {
         this.courseName = courseName;
         this.subjectName = subjectName;
         this.name = name;
@@ -18,11 +18,11 @@ public class Ocena {
     }
 
     public Integer getECTS(){return ECTS; }
-    public Integer getGrade() {
+    public Float getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(Float grade) {
         this.grade = grade;
     }
 

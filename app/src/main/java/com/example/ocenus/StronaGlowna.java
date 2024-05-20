@@ -70,7 +70,7 @@ public class StronaGlowna extends AppCompatActivity {
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strona_glowna);
@@ -116,11 +116,11 @@ public class StronaGlowna extends AppCompatActivity {
                                 .circleCrop()
                                 .into(profiloweImageView);
                     }
-                } else
-                {
+                } else {
                     Toast.makeText(StronaGlowna.this, "Brak danych o obrazie profilowym", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(StronaGlowna.this, "Błąd pobierania danych użytkownika", Toast.LENGTH_SHORT).show();
@@ -130,44 +130,44 @@ public class StronaGlowna extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/").getReference("users").child(login).child("courses");
         uzytkownik = new Uzytkownik(login, null, null);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                     @Override
+                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.getChildrenCount() !=0){
-                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        Kierunek course = new Kierunek(dataSnapshot.getKey(),5);
-                        for(DataSnapshot dataSnapshotLevel2: dataSnapshot.child("subjects").getChildren()){
-                            Przedmiot subject = new Przedmiot(course.getCourseName(), dataSnapshotLevel2.getKey(),Integer.valueOf(dataSnapshotLevel2.child("ects").getValue(String.class)),5);
-                            Map<RodzajOceny,Integer> weights= new HashMap<>();
-                            for(DataSnapshot dataSnapshotLevel3: dataSnapshotLevel2.child("weights").getChildren()) {
-                                weights.put(RodzajOceny.valueOf(dataSnapshotLevel3.getKey()),Integer.valueOf(String.valueOf(dataSnapshotLevel3.getValue())));
-                            }
-                            subject.setWeights(weights);
-                            for(DataSnapshot dataSnapshotLevel3: dataSnapshotLevel2.child("grades").getChildren()){
-                                Ocena grade = new Ocena(course.getCourseName(), subject.getSubjectName(), dataSnapshotLevel3.getKey(),Integer.valueOf(dataSnapshotLevel3.child("grade").getValue(String.class)), RodzajOceny.classes);
-                                subject.getGrades().add(grade);
-                                uzytkownik.getGrades().add(grade);
-                            }
-                            course.getSubjects().add(subject);
-                        }
-                        uzytkownik.getCourses().add(course);
+                                                         if (snapshot.getChildrenCount() != 0) {
+                                                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                                 Kierunek course = new Kierunek(dataSnapshot.getKey(), 5);
+                                                                 for (DataSnapshot dataSnapshotLevel2 : dataSnapshot.child("subjects").getChildren()) {
+                                                                     Przedmiot subject = new Przedmiot(course.getCourseName(), dataSnapshotLevel2.getKey(), Integer.valueOf(dataSnapshotLevel2.child("ects").getValue(String.class)), 5);
+                                                                     Map<RodzajOceny, Integer> weights = new HashMap<>();
+                                                                     for (DataSnapshot dataSnapshotLevel3 : dataSnapshotLevel2.child("weights").getChildren()) {
+                                                                         weights.put(RodzajOceny.valueOf(dataSnapshotLevel3.getKey()), Integer.valueOf(String.valueOf(dataSnapshotLevel3.getValue())));
+                                                                     }
+                                                                     subject.setWeights(weights);
+                                                                     for (DataSnapshot dataSnapshotLevel3 : dataSnapshotLevel2.child("grades").getChildren()) {
+                                                                         Ocena grade = new Ocena(course.getCourseName(), subject.getSubjectName(), dataSnapshotLevel3.getKey(), Float.valueOf(dataSnapshotLevel3.child("grade").getValue(String.class)), RodzajOceny.classes);
+                                                                         subject.getGrades().add(grade);
+                                                                         uzytkownik.getGrades().add(grade);
+                                                                     }
+                                                                     course.getSubjects().add(subject);
+                                                                 }
+                                                                 uzytkownik.getCourses().add(course);
 
-                    }
-                }
-                replaceFragment(new HomeFragment(uzytkownik));
-            }
+                                                             }
+                                                         }
+                                                         replaceFragment(new HomeFragment(uzytkownik));
+                                                     }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                                                     @Override
+                                                     public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        }
+                                                     }
+                                                 }
         );
 
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
-        drawerLayout=findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemBackgroundResource(R.drawable.checked_item);
 
@@ -185,7 +185,6 @@ public class StronaGlowna extends AppCompatActivity {
         }
 
         replaceFragment(new HomeFragment(uzytkownik));
-
 
 
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -374,14 +373,14 @@ public class StronaGlowna extends AppCompatActivity {
             reference = database.getReference("users").child(login).child("courses");
 
             int subjectSize = 0;
-            for(Kierunek course: uzytkownik.getCourses()){
-                subjectSize+=course.getSubjects().size();
+            for (Kierunek course : uzytkownik.getCourses()) {
+                subjectSize += course.getSubjects().size();
             }
 
             String[] s = new String[subjectSize];
             int counter = 0;
             for (Kierunek kierunek : uzytkownik.getCourses()) {
-                for(Przedmiot subject: kierunek.getSubjects()){
+                for (Przedmiot subject : kierunek.getSubjects()) {
                     s[counter] = subject.getSubjectName();
                     counter++;
                 }
@@ -398,7 +397,7 @@ public class StronaGlowna extends AppCompatActivity {
             EditText addGrade = new EditText(StronaGlowna.this);
             EditText addGrade2 = new EditText(StronaGlowna.this);
             TextView lectureLabel = new TextView(StronaGlowna.this);
-            TextView classesLabel =  new TextView(StronaGlowna.this);
+            TextView classesLabel = new TextView(StronaGlowna.this);
             CheckBox lectureCheck = new CheckBox(StronaGlowna.this);
             CheckBox classesCheck = new CheckBox(StronaGlowna.this);
 
@@ -420,20 +419,18 @@ public class StronaGlowna extends AppCompatActivity {
 
             lectureCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
                     {
-                        if(isChecked){
+                        if (isChecked) {
                             classesCheck.setChecked(false);
-                        }
-                        else{
+                        } else {
                             classesCheck.setChecked(true);
                         }
                     }
             );
             classesCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
                     {
-                        if(isChecked){
+                        if (isChecked) {
                             lectureCheck.setChecked(false);
-                        }
-                        else{
+                        } else {
                             lectureCheck.setChecked(true);
                         }
                     }
@@ -444,32 +441,46 @@ public class StronaGlowna extends AppCompatActivity {
             builder
                     .setCancelable(true)
                     .setPositiveButton("OK", (dialog1, id) -> {
+                        String gradeValue = String.valueOf(addGrade2.getText());
+                        Float gradeNumeric;
+                        try {
+                            gradeNumeric = Float.valueOf(gradeValue);
+                            if (gradeNumeric < 2.0F) {
+                                gradeNumeric = 2.0F;
+                            }
+                            if (gradeNumeric > 5.0F) {
+                                gradeNumeric = 5.0F;
+                            }
+
+                        } catch (Exception e) {
+                            gradeNumeric = 2.0F;
+                        }
                         String subject = sp.getSelectedItem().toString();
-                        Map<String,Object> values = new HashMap<>();
+                        Map<String, Object> values = new HashMap<>();
 //                        values.put("name",String.valueOf(addGrade.getText()));
-                        values.put("grade",String.valueOf(addGrade2.getText()));
-                        if(lectureCheck.isChecked()){
-                            values.put("Type",RodzajOceny.lecture);
+                        values.put("grade", String.valueOf(gradeNumeric));
+                        if (lectureCheck.isChecked()) {
+                            values.put("Type", RodzajOceny.lecture);
                         }
-                        if(classesCheck.isChecked()){
-                            values.put("Type",RodzajOceny.classes);
+                        if (classesCheck.isChecked()) {
+                            values.put("Type", RodzajOceny.classes);
                         }
-                        List<Przedmiot> subjects= new ArrayList<>();
-                        for(Kierunek course: uzytkownik.getCourses()){
+                        List<Przedmiot> subjects = new ArrayList<>();
+                        for (Kierunek course : uzytkownik.getCourses()) {
                             subjects.addAll(course.getSubjects());
                         }
                         Przedmiot subjectFound = subjects.stream().filter(subjectParam ->
                                 Objects.equals(subject, subjectParam.getSubjectName())).findFirst().get();
                         reference.child(subjectFound.getCourseName()).child("subjects").child(subject).child("grades").child(String.valueOf(addGrade.getText())).updateChildren(values);
-                        Toast.makeText(StronaGlowna.this,"Dodano ocenę!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StronaGlowna.this, "Dodano ocenę!", Toast.LENGTH_SHORT).show();
 
-                        Ocena grade=null;
+                        Ocena grade = null;
 
-                        if(lectureCheck.isChecked()){
-                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())),Integer.valueOf(String.valueOf(addGrade2.getText())),RodzajOceny.lecture);
+                        if (lectureCheck.isChecked()) {
+                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.lecture);
                         }
-                        if(classesCheck.isChecked()){
-                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())),Integer.valueOf(String.valueOf(addGrade2.getText())),RodzajOceny.classes);
+                        if (classesCheck.isChecked()) {
+                            grade = new Ocena(subjectFound.getCourseName(), subjectFound.getSubjectName(), (String.valueOf(addGrade.getText())), gradeNumeric, RodzajOceny.classes);
                         }
 
                         Kierunek courseFound = uzytkownik.getCourses()
@@ -479,11 +490,12 @@ public class StronaGlowna extends AppCompatActivity {
                         int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
                         Przedmiot subjectToAppend = courseFound.getSubjects()
                                 .stream()
-                                .filter(subjectParam -> Objects.equals(subjectFound.getSubjectName(),subjectParam.getSubjectName()))
+                                .filter(subjectParam -> Objects.equals(subjectFound.getSubjectName(), subjectParam.getSubjectName()))
                                 .collect(Collectors.toList()).stream().findFirst().get();
                         int subjectIndex = uzytkownik.getCourses().get(courseIndex).getSubjects().indexOf(subjectToAppend);
 
                         uzytkownik.getCourses().get(courseIndex).getSubjects().get(subjectIndex).getGrades().add(grade);
+                        uzytkownik.getGrades().add(grade);
 
                     });
             AlertDialog alert = builder.create();
@@ -498,7 +510,7 @@ public class StronaGlowna extends AppCompatActivity {
         wydarzenieLayout.setOnClickListener(v -> {
 
             dialog.dismiss();
-            Toast.makeText(StronaGlowna.this,"Kliknięto by dodać wydarzenie",Toast.LENGTH_SHORT).show();
+            Toast.makeText(StronaGlowna.this, "Kliknięto by dodać wydarzenie", Toast.LENGTH_SHORT).show();
 
         });
         kierunekLayout.setOnClickListener(v -> {
@@ -507,11 +519,10 @@ public class StronaGlowna extends AppCompatActivity {
         });
 
 
-
         cancelButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -519,14 +530,14 @@ public class StronaGlowna extends AppCompatActivity {
         cancelButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
 
-    private void addCourseShowDialog(Dialog dialog){
+    private void addCourseShowDialog(Dialog dialog) {
         login = intent.getStringExtra("login");
         database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
         reference = database.getReference("users").child(login).child("courses");
@@ -551,11 +562,20 @@ public class StronaGlowna extends AppCompatActivity {
                 .setMessage("Nazwa kierunku")
                 .setCancelable(true)
                 .setPositiveButton("OK", (dialog1, id) -> {
-                    Map<String,Object> values = new HashMap<>();
-                    values.put("Current semester",String.valueOf(addSemester.getText()));
-                    reference.child(String.valueOf(addCourse.getText())).updateChildren(values);
-                    Toast.makeText(StronaGlowna.this,"Dodano kierunek!",Toast.LENGTH_SHORT).show();
-                    uzytkownik.getCourses().add(new Kierunek(String.valueOf(addCourse.getText()), Integer.valueOf(String.valueOf(addSemester.getText()))));
+                    Map<String, Object> values = new HashMap<>();
+                    if (String.valueOf(addCourse.getText()).isEmpty() || String.valueOf(addCourse.getText()).trim().isEmpty()
+                            ||
+                            String.valueOf(addSemester.getText()).isEmpty() || String.valueOf(addSemester.getText()).trim().isEmpty()) {
+                        dialog.dismiss();
+                        Toast.makeText(StronaGlowna.this, "Nazwa kierunku oraz semestr nie mogą być puste", Toast.LENGTH_SHORT).show();
+                    } else {
+                        values.put("Current semester", String.valueOf(addSemester.getText()));
+                        reference.child(String.valueOf(addCourse.getText())).updateChildren(values);
+                        Toast.makeText(StronaGlowna.this, "Dodano kierunek!", Toast.LENGTH_SHORT).show();
+                        uzytkownik.getCourses().add(new Kierunek(String.valueOf(addCourse.getText()), Integer.valueOf(String.valueOf(addSemester.getText()))));
+
+                    }
+
                 });
 
         AlertDialog alert = builder.create();
@@ -564,7 +584,7 @@ public class StronaGlowna extends AppCompatActivity {
 
     }
 
-    private Spinner createCoursesSpinner(Dialog dialog){
+    private Spinner createCoursesSpinner(Dialog dialog) {
         String[] s = new String[uzytkownik.getCourses().size()];
 
         int counter = 0;
@@ -582,7 +602,8 @@ public class StronaGlowna extends AppCompatActivity {
         sp.setAdapter(adp);
         return sp;
     }
-    private void addSubjectShowDialog(Dialog dialog){
+
+    private void addSubjectShowDialog(Dialog dialog) {
 
         login = intent.getStringExtra("login");
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ocenus-8f95e-default-rtdb.firebaseio.com/");
@@ -592,7 +613,7 @@ public class StronaGlowna extends AppCompatActivity {
         Spinner sp = createCoursesSpinner(dialog);
         TextView coursesListLabel = new TextView(StronaGlowna.this);
         TextView lectureLabel = new TextView(StronaGlowna.this);
-        TextView classesLabel =  new TextView(StronaGlowna.this);
+        TextView classesLabel = new TextView(StronaGlowna.this);
         EditText addCourseName = new EditText(StronaGlowna.this);
         EditText addCourseEcts = new EditText(StronaGlowna.this);
         EditText addCourseSemester = new EditText(StronaGlowna.this);
@@ -632,25 +653,23 @@ public class StronaGlowna extends AppCompatActivity {
         lectureWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         lectureCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-        {
-            if(isChecked){
-                lectureWeight.setEnabled(true);
-                lectureWeight.setHintTextColor(Color.WHITE);
-            }
-            else{
-                lectureWeight.setEnabled(false);
-                lectureWeight.setHintTextColor(Color.GRAY);
-            }
-        }
+                {
+                    if (isChecked) {
+                        lectureWeight.setEnabled(true);
+                        lectureWeight.setHintTextColor(Color.WHITE);
+                    } else {
+                        lectureWeight.setEnabled(false);
+                        lectureWeight.setHintTextColor(Color.GRAY);
+                    }
+                }
         );
 
         classesCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
                 {
-                    if(isChecked){
+                    if (isChecked) {
                         classesWeight.setEnabled(true);
                         classesWeight.setHintTextColor(Color.WHITE);
-                    }
-                    else{
+                    } else {
                         classesWeight.setEnabled(false);
                         classesWeight.setHintTextColor(Color.GRAY);
                     }
@@ -665,50 +684,55 @@ public class StronaGlowna extends AppCompatActivity {
 
                     String course = sp.getSelectedItem().toString();
 
-                    Map<String,Object> values = new HashMap<>();
-                    values.put("ects",String.valueOf(addCourseEcts.getText()));
-                    values.put("semester", String.valueOf(addCourseSemester.getText()));
-                    reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).updateChildren(values);
-                    values = new HashMap<>();
-                    Map<RodzajOceny,Integer> weights = new HashMap<>();
-                    if(lectureCheck.isChecked() && classesCheck.isChecked()){
-                        values.put("lecture",String.valueOf(lectureWeight.getText()));
-                        values.put("classes", String.valueOf(classesWeight.getText()));
-                        weights.put(RodzajOceny.classes,Integer.valueOf(String.valueOf(classesWeight.getText())));
-                        weights.put(RodzajOceny.lecture,Integer.valueOf(String.valueOf(lectureWeight.getText())));
-                    }
-                    else if (lectureCheck.isChecked()){
-                        values.put("lecture",String.valueOf(100));
-                        weights.put(RodzajOceny.lecture,100);
-                    }
-                    else {
-                        values.put("classes",String.valueOf(100));
-                        weights.put(RodzajOceny.classes,100);
-                    }
-                    reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).child("weights").updateChildren(values);
+                    Map<String, Object> values = new HashMap<>();
+                    if (String.valueOf(addCourseName.getText()).isEmpty() || String.valueOf(addCourseName.getText()).trim().isEmpty()
+                            ||
+                            String.valueOf(addCourseEcts.getText()).isEmpty() || String.valueOf(addCourseEcts.getText()).trim().isEmpty()
+                            ||
+                            String.valueOf(addCourseSemester.getText()).isEmpty() || String.valueOf(addCourseSemester.getText()).trim().isEmpty()) {
+                        dialog.dismiss();
+                        Toast.makeText(StronaGlowna.this, "Nazwa przedmiotu oraz ECTS nie mogą być puste", Toast.LENGTH_SHORT).show();
+                    } else {
+                        values.put("ects", String.valueOf(addCourseEcts.getText()));
+                        values.put("semester", String.valueOf(addCourseSemester.getText()));
+                        reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).updateChildren(values);
+                        values = new HashMap<>();
+                        Map<RodzajOceny, Integer> weights = new HashMap<>();
+                        if (lectureCheck.isChecked() && classesCheck.isChecked()) {
+                            values.put("lecture", String.valueOf(lectureWeight.getText()));
+                            values.put("classes", String.valueOf(classesWeight.getText()));
+                            weights.put(RodzajOceny.classes, Integer.valueOf(String.valueOf(classesWeight.getText())));
+                            weights.put(RodzajOceny.lecture, Integer.valueOf(String.valueOf(lectureWeight.getText())));
+                        } else if (lectureCheck.isChecked()) {
+                            values.put("lecture", String.valueOf(100));
+                            weights.put(RodzajOceny.lecture, 100);
+                        } else {
+                            values.put("classes", String.valueOf(100));
+                            weights.put(RodzajOceny.classes, 100);
+                        }
+                        reference.child(course).child("subjects").child(String.valueOf(addCourseName.getText())).child("weights").updateChildren(values);
 
-                    Toast.makeText(StronaGlowna.this,"Dodano przedmiot!",Toast.LENGTH_SHORT).show();
-                    Przedmiot subject = new Przedmiot(course, (String.valueOf(addCourseName.getText())),Integer.valueOf(String.valueOf(addCourseEcts.getText())),Integer.valueOf(String.valueOf(addCourseSemester.getText())));
-                    subject.setWeights(weights);
-                    Kierunek courseFound = uzytkownik.getCourses()
-                            .stream()
-                            .filter(courseParam -> course.equals(courseParam.getCourseName()))
-                            .collect(Collectors.toList()).stream().findFirst().get();
-                    int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
-                    uzytkownik.getCourses().get(courseIndex).getSubjects().add(subject);
+                        Toast.makeText(StronaGlowna.this, "Dodano przedmiot!", Toast.LENGTH_SHORT).show();
+                        Przedmiot subject = new Przedmiot(course, (String.valueOf(addCourseName.getText())), Integer.valueOf(String.valueOf(addCourseEcts.getText())), Integer.valueOf(String.valueOf(addCourseSemester.getText())));
+                        subject.setWeights(weights);
+                        Kierunek courseFound = uzytkownik.getCourses()
+                                .stream()
+                                .filter(courseParam -> course.equals(courseParam.getCourseName()))
+                                .collect(Collectors.toList()).stream().findFirst().get();
+                        int courseIndex = uzytkownik.getCourses().indexOf(courseFound);
+                        uzytkownik.getCourses().get(courseIndex).getSubjects().add(subject);
+                    }
+
 
                 });
         AlertDialog alert = builder.create();
         alert.show();
 
-        };
-
-
-
-
-
-
-
     }
+
+    ;
+
+
+}
 
 
