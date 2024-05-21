@@ -2,6 +2,7 @@ package com.example.ocenus;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,26 +17,6 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class InformacjeFragment extends Fragment {
-
-    public static void showAboutDialog(Context context) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_o_aplikacji, null);
-
-        TextView description1 = view.findViewById(R.id.description1);
-
-        description1.setText("Ocenus to aplikacja do liczenia średniej ocen i monitorowania postępów w nauce. Stworzona przez grupę trzech studentów, aplikacja ma na celu ułatwienie organizacji i poprawę wyników edukacyjnych. Dzięki Ocenus możesz śledzić swoje oceny, analizować postępy oraz motywować się do dalszej nauki. Nasz zespół dokłada wszelkich starań, aby aplikacja była intuicyjna i pomocna dla każdego studenta.");
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(view);
-        builder.setIcon(R.drawable.baseline_info_24);
-        builder.setTitle(" O aplikacji");
-
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            // Additional logic if needed after clicking OK
-        });
-
-        builder.create().show();
-    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,5 +63,29 @@ public class InformacjeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_o_aplikacji, container, false);
+    }
+
+    public static void showAboutDialog(Context context) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.fragment_o_aplikacji, null);
+
+        TextView description1 = view.findViewById(R.id.description1);
+        description1.setText("Ocenus to aplikacja do liczenia średniej ocen i monitorowania postępów w nauce. Stworzona przez grupę trzech studentów, aplikacja ma na celu ułatwienie organizacji i poprawę wyników edukacyjnych. Dzięki Ocenus możesz śledzić swoje oceny, analizować postępy oraz motywować się do dalszej nauki. Nasz zespół dokłada wszelkich starań, aby aplikacja była intuicyjna i pomocna dla każdego studenta.");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view);
+        builder.setIcon(isDarkThemeEnabled(context) ? R.drawable.baseline_info_24_noc : R.drawable.baseline_info_24);
+        builder.setTitle("O aplikacji");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            // Additional logic if needed after clicking OK
+        });
+
+        builder.create().show();
+    }
+
+    private static boolean isDarkThemeEnabled(Context context) {
+        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 }

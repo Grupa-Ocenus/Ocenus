@@ -28,7 +28,7 @@
     <item
         android:id="@+id/Edycja"
         android:title="@string/edycja"
-        android:icon="@drawable/baseline_settings_24"
+        android:icon="@drawable/baseline_edit_note_24"
         app:showAsAction="always"/>
 
 </menu>

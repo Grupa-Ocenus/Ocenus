@@ -15,5 +15,6 @@
     <color name="transparent">#00000000</color>
     <color name="ProfileGrey">#C6C6C6</color>color>
     <color name="AddGrey">#636464</color>color>
+    <color name="Pasek_boczny_noc">#404040</color>color>
 
 </resources>

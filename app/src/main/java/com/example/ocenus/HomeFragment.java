@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
@@ -40,6 +41,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        if (uzytkownik == null) {
+            
+            return view;
+        }
         // Create an array of subject names
         List<String> subjectNames = new ArrayList<>();
         for (Kierunek kierunek : uzytkownik.getCourses()) {

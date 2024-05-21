@@ -187,13 +187,22 @@ public class StronaGlowna extends AppCompatActivity {
         replaceFragment(new HomeFragment(uzytkownik));
 
 
+
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        resetMenuItemColors(navigationView);
+
+
         if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
-            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
-        } else {
             changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.BLACK);
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.white));
+
+        } else {
+            changeMenuItemColor(navigationView.getMenu(), R.id.nav_home, Color.WHITE);
             getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.motyw_noc));
+
         }
+
+
 
         navigationView.setNavigationItemSelectedListener(item -> {
             resetMenuItemColors(navigationView);
@@ -268,6 +277,7 @@ public class StronaGlowna extends AppCompatActivity {
         fab.setOnClickListener(view -> showBottomDialog());
     }
 
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -324,6 +334,9 @@ public class StronaGlowna extends AppCompatActivity {
 
 
     private void resetMenuItemColors(NavigationView navigationView) {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        int textColor = (currentNightMode == Configuration.UI_MODE_NIGHT_NO) ? Color.BLACK : Color.WHITE;
+
         Menu menu = navigationView.getMenu();
         // Iterujemy po każdym elemencie menu
         for (int i = 0; i < menu.size(); i++) {
@@ -333,16 +346,18 @@ public class StronaGlowna extends AppCompatActivity {
                 // Iterujemy po elementach submenu
                 for (int j = 0; j < subMenu.size(); j++) {
                     MenuItem subMenuItem = subMenu.getItem(j);
-                    // Ustawiamy kolor tekstu na czarny
+                    // Ustawiamy kolor tekstu zgodnie z obliczonym kolor tekstu
                     SpannableString spannable = new SpannableString(subMenuItem.getTitle());
-                    spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
+                    spannable.setSpan(new ForegroundColorSpan(textColor), 0, spannable.length(), 0);
                     subMenuItem.setTitle(spannable);
                 }
             } else {
-                // Ustawiamy kolor tekstu na czarny dla pojedynczych elementów menu
-                SpannableString spannable = new SpannableString(menuItem.getTitle());
-                spannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannable.length(), 0);
-                menuItem.setTitle(spannable);
+                if(currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+                    // Ustawiamy kolor tekstu zgodnie z obliczonym kolor tekstu dla pojedynczych elementów menu
+                    SpannableString spannable = new SpannableString(menuItem.getTitle());
+                    spannable.setSpan(new ForegroundColorSpan(textColor), 0, spannable.length(), 0);
+                    menuItem.setTitle(spannable);
+                }
             }
         }
     }

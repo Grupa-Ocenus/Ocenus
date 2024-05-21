@@ -13,9 +13,12 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="navigationViewBackground">@color/Pasek_boczny_noc</item>
+
 
 
     </style>
+
 
     <style name="EditTextStyle_Dark" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/ocenus_ramka_noc</item>
@@ -28,8 +31,16 @@
     </style>
 
     <style name="DarkTheme" parent="Base.Theme.Ocenus">
-    <item name="android:background">@color/motyw_noc</item>
+        <item name="android:background">@color/motyw_noc</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="NavigationViewTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Użyj odwołania do navigationViewBackground -->
+        <item name="android:background">?attr/navigationViewBackground</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 
 </resources>
