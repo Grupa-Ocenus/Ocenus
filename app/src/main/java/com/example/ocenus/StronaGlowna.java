@@ -228,7 +228,7 @@ public class StronaGlowna extends AppCompatActivity {
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_ustawienia, Color.WHITE);
                     break;
                 case R.id.nav_blad:
-                    Toast.makeText(this, "Kliknięto zglos blad!", Toast.LENGTH_SHORT).show();
+                    BladFragment.showAboutDialog(StronaGlowna.this);
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_blad, Color.WHITE);
                     break;
                 case R.id.nav_informacje:

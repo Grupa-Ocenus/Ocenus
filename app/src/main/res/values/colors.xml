@@ -16,5 +16,7 @@
     <color name="ProfileGrey">#C6C6C6</color>color>
     <color name="AddGrey">#636464</color>color>
     <color name="Pasek_boczny_noc">#404040</color>color>
+    <color name="Noc">#424242</color>color>
+    <color name="background_holo_dark">#ff000000</color>
 
 </resources>
