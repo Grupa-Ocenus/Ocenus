@@ -74,7 +74,6 @@ public class BladFragment extends Fragment {
         wyslijBlad.setHint("Opisz błąd związany z aplikacją");
         wyslijBlad.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         wyslijBlad.setGravity(Gravity.TOP | Gravity.START);
-        wyslijBlad.setBackgroundResource(android.R.drawable.edit_text);
         wyslijBlad.setPadding(16, 16, 16, 16);
 
         // Ustaw maksymalną długość na 1000 znaków
@@ -92,11 +91,15 @@ public class BladFragment extends Fragment {
             wyslijBlad.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         }
 
+        // Ustaw ramkę dla EditText
+        wyslijBlad.setBackground(ContextCompat.getDrawable(context, R.drawable.edittext_border));
+
         // Ustaw rozmiar EditText
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 800 // Ustaw wysokość EditText na 800 pikseli
         );
+        layoutParams.gravity = Gravity.CENTER;
         wyslijBlad.setLayoutParams(layoutParams);
 
         // Stwórz TextView do wyświetlania liczby znaków
@@ -107,15 +110,16 @@ public class BladFragment extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        counterLayoutParams.gravity = Gravity.BOTTOM | Gravity.START;
+        counterLayoutParams.gravity = Gravity.START;  // Ustawienie licznika po lewej stronie
         counterTextView.setLayoutParams(counterLayoutParams);
 
         // Stwórz układ linearLayout aby umieścić EditText i licznik
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL); // Ustaw wyśrodkowanie poziome
 
         // Dodaj pustą przestrzeń między tytułem a polem EditText
-        layout.setPadding(40, 50, 10, 0); // Ustaw dolny padding na 32 piksele
+        layout.setPadding(40, 50, 40, 0); // Ustaw dolny padding na 32 piksele
 
         layout.addView(wyslijBlad);
 
@@ -127,7 +131,7 @@ public class BladFragment extends Fragment {
 
         layout.addView(counterTextView);
 
-// Dodaj dodatkową przestrzeń między licznikiem a przyciskiem "Anuluj"
+        // Dodaj dodatkową przestrzeń między licznikiem a przyciskiem "Anuluj"
         LinearLayout.LayoutParams spaceParams2 = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT // Ustaw wysokość przestrzeni na zawartość

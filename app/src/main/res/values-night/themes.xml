@@ -14,7 +14,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="navigationViewBackground">@color/Pasek_boczny_noc</item>
-
+        <item name="customViewColor">@color/motyw_noc</item>
 
 
     </style>

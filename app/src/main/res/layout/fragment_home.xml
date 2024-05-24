@@ -27,6 +27,6 @@
         android:visibility="invisible"
         android:divider="#f00"
         android:dividerHeight="1dp"
-        android:listSelector="#0f0" />
+        android:listSelector="@color/grey_hint" />
 
 </FrameLayout>
