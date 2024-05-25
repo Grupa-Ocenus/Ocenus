@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="@id/linearLayout"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/editButton"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/editButton"
@@ -43,6 +43,34 @@
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@id/linearLayout"
         app:layout_constraintVertical_bias="0.173" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/profil_ramka"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goToMain"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/asap"
+            android:text="Aby przycisk z przejściem na stronę główną stał się aktywny, ukończ rejestrację"
+            android:textAlignment="center"
+            android:textStyle="italic" /> <!-- Dodany margines wewnątrz FrameLayout -->
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/profileImg"

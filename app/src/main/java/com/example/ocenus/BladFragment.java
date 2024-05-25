@@ -1,5 +1,6 @@
 package com.example.ocenus;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -12,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -156,6 +156,7 @@ public class BladFragment extends Fragment {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     // Aktualizuj tekst licznika

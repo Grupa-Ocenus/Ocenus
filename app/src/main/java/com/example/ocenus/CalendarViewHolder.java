@@ -6,8 +6,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.threeten.bp.LocalDate;
-
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
     public final TextView dayOfMonth;

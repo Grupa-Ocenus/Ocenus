@@ -212,11 +212,20 @@ public class Logowanie extends AppCompatActivity {
                         DaneUzytkownika dane = snapshot.child(userLogin).child("dane").getValue(DaneUzytkownika.class);
                         Intent intent;
                         if (Objects.isNull(dane) || Objects.equals(dane.getName(), " ") || Objects.equals(dane.getSurname(), " ")) {
-                            intent = new Intent(Logowanie.this, EdytujProfil.class);
-                        } else {
+                            // Jeśli dane użytkownika są puste, to jest to pierwsze logowanie
                             intent = new Intent(Logowanie.this, Profil.class);
-                            intent.putExtra("name", dane.getName());
-                            intent.putExtra("surname", dane.getSurname());
+                            intent.putExtra("firstLogin", true);
+                        } else {
+                            // Sprawdź, czy użytkownik ma ustawione imię i nazwisko
+                            if (!dane.getName().isEmpty() && !dane.getSurname().isEmpty()) {
+                                // Jeśli użytkownik ma imię i nazwisko, przekieruj do strony głównej
+                                intent = new Intent(Logowanie.this, StronaGlowna.class);
+                            } else {
+                                // W przeciwnym razie przekieruj do strony profilu
+                                intent = new Intent(Logowanie.this, Profil.class);
+                                intent.putExtra("name", dane.getName());
+                                intent.putExtra("surname", dane.getSurname());
+                            }
                         }
                         intent.putExtra("login", loginFromDB);
                         startActivity(intent);

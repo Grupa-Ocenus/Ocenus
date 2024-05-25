@@ -224,7 +224,8 @@ public class StronaGlowna extends AppCompatActivity {
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_statystyki, Color.WHITE);
                     break;
                 case R.id.nav_ustawienia:
-                    replaceFragment(new SettingsFragment());
+                    UstawieniaGlowne.showSettingsDialog(this);
+                    //replaceFragment(new SettingsFragment());
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_ustawienia, Color.WHITE);
                     break;
                 case R.id.nav_blad:
@@ -278,12 +279,13 @@ public class StronaGlowna extends AppCompatActivity {
     }
 
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            moveTaskToBack(true);
         }
     }
 

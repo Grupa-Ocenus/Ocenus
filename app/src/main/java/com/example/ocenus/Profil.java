@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,8 +25,16 @@ public class Profil extends AppCompatActivity {
         editProfile = findViewById(R.id.editButton);
         goToMain = findViewById(R.id.goToMain);
 
+        goToMain.setEnabled(false);
         editProfile.setOnClickListener(view -> goToEdit());
-        goToMain.setOnClickListener(view -> goToMain());
+        goToMain.setOnClickListener(view -> {
+            if (goToMain.isEnabled()) {
+                goToMain();
+            } else {
+                // Wyświetlenie komunikatu, że najpierw należy ukończyć edycję profilu
+                Toast.makeText(this, "Najpierw ukończ edycję profilu", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
@@ -37,6 +46,11 @@ public class Profil extends AppCompatActivity {
         }
 
 
+    }
+
+    private void updateGoToMainButton() {
+        boolean fieldsNotEmpty = !profileName.getText().toString().isEmpty() && !profileSurname.getText().toString().isEmpty();
+        goToMain.setEnabled(fieldsNotEmpty);
     }
 
     @Override
@@ -54,6 +68,8 @@ public class Profil extends AppCompatActivity {
             profileName.setText(nameUser);
             profileSurname.setText(surnameUser);
             profileLogin.setText(loginUser);
+
+            updateGoToMainButton();
         }
     }
 
