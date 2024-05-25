@@ -9,6 +9,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
     <color name="ocenusowski">#C30000</color>
+    <color name="ocenusowski_light">#C14343</color>
     <color name="grey_hint">#ACACAC</color>
     <color name="motyw_noc">#242424</color>
     <color name="dialogbkg">#FFFFFF</color>
@@ -18,5 +19,6 @@
     <color name="Pasek_boczny_noc">#404040</color>color>
     <color name="Noc">#424242</color>color>
     <color name="background_holo_dark">#ff000000</color>
+    <color name="gray">#8E8E8E</color>
 
 </resources>

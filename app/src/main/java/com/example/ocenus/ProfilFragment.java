@@ -61,14 +61,11 @@ public class ProfilFragment extends Fragment {
         Button editButton = view.findViewById(R.id.editButton);
 
         // Dodaj obsługę kliknięcia na przycisk edycji
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Przekieruj do aktywności EdytujProfil
-                Intent intent = new Intent(getActivity(), EdytujProfil.class);
-                intent.putExtra("login", login); // Przekaż login do aktywności EdytujProfil
-                startActivity(intent);
-            }
+        editButton.setOnClickListener(v -> {
+            // Przekieruj do aktywności EdytujProfil
+            Intent intent = new Intent(getActivity(), EdytujProfil.class);
+            intent.putExtra("login", login); // Przekaż login do aktywności EdytujProfil
+            startActivity(intent);
         });
     }
 
@@ -90,6 +87,7 @@ public class ProfilFragment extends Fragment {
         Log.d("ProfilFragment", "Rozpoczęto pobieranie danych użytkownika");
 
         if (login != null) {
+
             // Pobierz dane użytkownika z bazy danych
             DatabaseReference userRef = databaseReference.child(login).child("dane");
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -98,7 +96,6 @@ public class ProfilFragment extends Fragment {
                     if (dataSnapshot.exists()) {
                         String imie = dataSnapshot.child("name").getValue(String.class);
                         String nazwisko = dataSnapshot.child("surname").getValue(String.class);
-                        String haslo = dataSnapshot.child("password").getValue(String.class);
 
                         TextView imieTextView = getView().findViewById(R.id.profileImie);
                         TextView nazwiskoTextView = getView().findViewById(R.id.profileNazwisko);
