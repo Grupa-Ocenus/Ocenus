@@ -220,7 +220,7 @@ public class StronaGlowna extends AppCompatActivity {
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_wydarzenia, Color.WHITE);
                     break;
                 case R.id.nav_statystyki:
-                    replaceFragment(new StatystykiFragment());
+                    replaceFragment(new StatystykiFragment(uzytkownik));
                     changeMenuItemColor(navigationView.getMenu(), R.id.nav_statystyki, Color.WHITE);
                     break;
                 case R.id.nav_ustawienia:
@@ -262,7 +262,7 @@ public class StronaGlowna extends AppCompatActivity {
                     replaceFragment(new HomeFragment(uzytkownik));
                     break;
                 case R.id.Statystyki:
-                    replaceFragment(new StatystykiFragment());
+                    replaceFragment(new StatystykiFragment(uzytkownik));
                     break;
                 case R.id.Wydarzenia:
                     replaceFragment(new WydarzeniaFragment());

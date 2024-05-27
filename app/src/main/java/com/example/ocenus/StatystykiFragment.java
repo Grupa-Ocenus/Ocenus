@@ -4,60 +4,102 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StatystykiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+
 public class StatystykiFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Uzytkownik uzytkownik;
 
     public StatystykiFragment() {
-        // Required empty public constructor
+        // Default constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StatystykiFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static StatystykiFragment newInstance(String param1, String param2) {
-        StatystykiFragment fragment = new StatystykiFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public StatystykiFragment(Uzytkownik uzytkownik) {
+        this.uzytkownik = uzytkownik;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_statystyki, container, false);
+        View view = inflater.inflate(R.layout.fragment_statystyki, container, false);
+
+        if (uzytkownik == null) {
+            return view;
+        }
+
+        List<Kierunek> courses = uzytkownik.getCourses();
+        LinearLayout layout = view.findViewById(R.id.layout_course_averages);
+
+        // Iterate through each course
+        for (int i = 0; i < courses.size(); i++) {
+            Kierunek course = courses.get(i);
+            double[] courseAverage = calculateCourseWeightedAverages(uzytkownik);
+
+            // Inflate the custom layout for the list item
+            View listItemView = inflater.inflate(R.layout.list_item_course_average, null); // Change to your list item layout
+
+            // Find TextViews inside the list item layout
+            TextView textViewCourseName = listItemView.findViewById(R.id.text_view_course_name);
+            TextView textViewCourseAverage = listItemView.findViewById(R.id.text_view_course_average);
+
+            // Set course name and average to TextViews
+            textViewCourseName.setText(course.getCourseName());
+            textViewCourseAverage.setText(String.format("%.2f", courseAverage[i])); // Use the course average from the array
+
+            // Add the list item to the layout
+            layout.addView(listItemView);
+        }
+
+        return view;
     }
+
+
+
+
+
+    private double calculateWeightedAverage(Przedmiot przedmiot) {
+        double totalWeight = 0;
+        double weightedSum = 0;
+        for (Ocena ocena : przedmiot.getGrades()) {
+            double grade = ocena.getGrade();
+            double weight = przedmiot.getECTS(); // Assuming each subject has an ECTS weight
+            weightedSum += grade * weight;
+            totalWeight += weight;
+        }
+        return totalWeight == 0 ? 0 : weightedSum / totalWeight;
+    }
+
+    public double[] calculateCourseWeightedAverages(Uzytkownik uzytkownik) {
+        List<Kierunek> courses = uzytkownik.getCourses();
+        double[] courseAverages = new double[courses.size()];
+
+        // Iterate through each course
+        for (int i = 0; i < courses.size(); i++) {
+            Kierunek course = courses.get(i);
+            double totalWeightedSum = 0;
+            double totalWeight = 0;
+
+            // Iterate through each subject in the current course
+            for (Przedmiot subject : course.getSubjects()) {
+                double weightedAvg = calculateWeightedAverage(subject); // Calculate weighted average for the subject
+                double weight = subject.getECTS(); // Get ECTS weight for the subject
+                totalWeightedSum += weightedAvg * weight; // Add to total weighted sum
+                totalWeight += weight; // Add to total weight
+            }
+
+            // Calculate the weighted average for the current course
+            double courseWeightedAvg = totalWeight == 0 ? 0 : totalWeightedSum / totalWeight;
+            courseAverages[i] = courseWeightedAvg;
+        }
+
+        return courseAverages;
+    }
+
 }
