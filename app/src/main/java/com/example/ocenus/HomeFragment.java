@@ -1,13 +1,17 @@
 package com.example.ocenus;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -22,6 +26,8 @@ public class HomeFragment extends Fragment {
     private Uzytkownik uzytkownik;
     private GridView coursesGridView; // Changed from ListView
     private ListView gradesListView;
+
+    private Spinner course_spinner;
 
     private OnBackPressedCallback callback;
 
@@ -43,32 +49,87 @@ public class HomeFragment extends Fragment {
             
             return view;
         }
-        // Create an array of subject names
-        List<String> subjectNames = new ArrayList<>();
+        course_spinner = view.findViewById(R.id.course_spinner);
+
+        String[] s = new String[uzytkownik.getCourses().size()];
+
+        int counter = 0;
         for (Kierunek kierunek : uzytkownik.getCourses()) {
-            for (Przedmiot przedmiot : kierunek.getSubjects()) {
-                subjectNames.add(przedmiot.getSubjectName());
-            }
+            s[counter] = kierunek.getCourseName();
+            counter++;
         }
 
 
+        final ArrayAdapter<String> adp = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, s);
 
-        // Set up the GridView with subject names
-//        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-//                R.layout.grid_item_layout, R.id.textView, subjectNames) {
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = super.getView(position, convertView, parent);
-//                TextView textView = view.findViewById(R.id.textView);
-//                String subjectName = subjectNames.get(position);
-//                if (subjectName.length() > 13) {
-//                    subjectName = subjectName.substring(0, 10) + "...";
-//                }
-//                textView.setText(subjectName);
-//                return view;
-//            }
-//
-//        };
+
+        course_spinner.setAdapter(adp);
+
+        List<String> subjectNames = new ArrayList<>();
+        for (Kierunek kierunek : uzytkownik.getCourses()) {
+            if(Objects.equals(kierunek.getCourseName(), course_spinner.getItemAtPosition(0).toString())){
+                for (Przedmiot przedmiot : kierunek.getSubjects()) {
+                    subjectNames.add(przedmiot.getSubjectName());
+                }
+            }
+        }
+
+        course_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                subjectNames.removeAll(subjectNames);
+                for (Kierunek kierunek : uzytkownik.getCourses()) {
+                    if(Objects.equals(kierunek.getCourseName(), course_spinner.getItemAtPosition(i).toString())){
+                        for (Przedmiot przedmiot : kierunek.getSubjects()) {
+                            subjectNames.add(przedmiot.getSubjectName());
+                        }
+                    }
+                }
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                        R.layout.grid_item_layout, R.id.textView, subjectNames) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+                        TextView textView = view.findViewById(R.id.textView);
+                        TextView textViewOcena = view.findViewById(R.id.textViewOcena);
+
+                        String subjectName = subjectNames.get(position);
+                        if (subjectName.length() > 13) {
+                            subjectName = subjectName.substring(0, 10) + "...";
+                        }
+                        textView.setText(subjectName);
+
+                        // Find the corresponding subject and calculate its weighted average
+                        Przedmiot subject = null;
+                        outerLoop:
+                        for (Kierunek kierunek : uzytkownik.getCourses()) {
+                            for (Przedmiot przedmiot : kierunek.getSubjects()) {
+                                if (przedmiot.getSubjectName().equals(subjectNames.get(position))) {
+                                    subject = przedmiot;
+                                    break outerLoop;
+                                }
+                            }
+                        }
+
+                        if (subject != null) {
+                            double average = calculateWeightedAverage(subject);
+                            textViewOcena.setText(String.format("%.2f", average));
+                        }
+
+                        return view;
+                    }
+
+                };
+
+                if (Objects.nonNull(coursesGridView)){
+                    coursesGridView.setAdapter(adapter);
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 R.layout.grid_item_layout, R.id.textView, subjectNames) {
@@ -130,6 +191,7 @@ public class HomeFragment extends Fragment {
             gradesListView.setAdapter(gradesAdapter);
             gradesListView.setVisibility(View.VISIBLE);
             coursesGridView.setVisibility(View.INVISIBLE);
+            course_spinner.setVisibility(View.INVISIBLE);
         });
 
         return view;
@@ -156,6 +218,7 @@ public class HomeFragment extends Fragment {
                 if (gradesListView != null && gradesListView.getVisibility() == View.VISIBLE) {
                     gradesListView.setVisibility(View.INVISIBLE);
                     coursesGridView.setVisibility(View.VISIBLE);
+                    course_spinner.setVisibility(View.VISIBLE);
                 } else {
                     requireActivity().onBackPressed();
                 }

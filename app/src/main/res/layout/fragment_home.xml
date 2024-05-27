@@ -8,16 +8,23 @@
     tools:ignore="ExtraText">
 
     <!-- GridView for subject tiles -->
+    <Spinner
+        android:id="@+id/course_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:visibility="visible" />
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
-        android:padding="16dp"
+        android:layout_height="690dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:stretchMode="columnWidth" />
+        android:horizontalSpacing="8dp"
+        android:numColumns="2"
+        android:padding="16dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp" />
 
 
     <ListView

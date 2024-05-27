@@ -64,10 +64,11 @@ public class Profil extends AppCompatActivity {
         String surnameUser = intent.getStringExtra("surname");
         String loginUser = intent.getStringExtra("login");
 
+        profileLogin.setText(loginUser);
         if(nameUser != null && surnameUser != null && loginUser != null) {
             profileName.setText(nameUser);
             profileSurname.setText(surnameUser);
-            profileLogin.setText(loginUser);
+
 
             updateGoToMainButton();
         }
